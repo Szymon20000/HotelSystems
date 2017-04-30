@@ -18,7 +18,10 @@ bin/
 /lib/
 /logs/
 /modules
-/project/
+/project/project
+/project/boot
+/project/target
+/project/plugins/target
 /target
 tmp/
 test-result
