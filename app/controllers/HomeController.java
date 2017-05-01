@@ -1,5 +1,7 @@
 package controllers;
 
+import play.data.Form;
+import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.*;
 
@@ -16,12 +18,28 @@ import java.sql.Statement;
 public class HomeController extends Controller {
 
     private Database db;
+    private final play.data.FormFactory formFactory;
 
     @Inject
-    public HomeController(Database db) {
+    public HomeController(Database db, FormFactory formFactory) {
         this.db = db;
+        this.formFactory = formFactory;
     }
 
+    public Result form() {
+        Form<FormData> form = formFactory.form(FormData.class);
+        Http.Context context = Http.Context.current();
+        return ok(views.html.form.render(form, context.messages()));
+    }
+
+    public Result upload() {
+        Form<FormData> formData = formFactory.form(FormData.class).bindFromRequest();
+        if(formData.hasErrors()) {
+            return badRequest("nope");
+        }
+        FormData data = formData.get();
+        return ok(data.name + " " + data.password);
+    }
 
     /**
      * An action that renders an HTML page with a welcome message.
