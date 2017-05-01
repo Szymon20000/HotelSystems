@@ -13,3 +13,7 @@ unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
 libraryDependencies += filters
+
+libraryDependencies += javaJdbc
+
+libraryDependencies += "org.postgresql" % "postgresql" % "9.2-1003-jdbc4"
