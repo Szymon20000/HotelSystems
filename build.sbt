@@ -2,9 +2,9 @@ name := "HotelSystems"
 
 version := "1.0"
 
-lazy val `hotelsystems` = (project in file(".")).enablePlugins(PlayScala)
+lazy val `hotelsystems` = (project in file(".")).enablePlugins(PlayJava)
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.11"
 
 libraryDependencies ++= Seq( jdbc , cache , ws   , specs2 % Test )
 
@@ -16,4 +16,6 @@ libraryDependencies += filters
 
 libraryDependencies += javaJdbc
 
-libraryDependencies += "org.postgresql" % "postgresql" % "9.2-1003-jdbc4"
+libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1104-jdbc41"
+
+libraryDependencies += "com.adrianhurt" %% "play-bootstrap" % "1.1-P25-B3"
