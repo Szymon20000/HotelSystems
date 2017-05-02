@@ -4,6 +4,7 @@ import play.data.validation.Constraints;
 
 public class FormData {
     @Constraints.Required
+    int id;
     public String name;
     public String password;
     public Boolean remember;
