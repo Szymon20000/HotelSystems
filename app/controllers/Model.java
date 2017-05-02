@@ -57,7 +57,7 @@ public abstract class Model {
         }
 
         if(New) {
-            insert();
+            insert(true);
         } else {
             update();
         }
@@ -71,8 +71,7 @@ public abstract class Model {
         Connection connection = db.getConnection();
         String sql;
         sql = "SELECT * FROM " + this.getClass().getSimpleName().toLowerCase()
-                + " where id = " + this.getClass().getDeclaredField("id").get(this).toString();
-
+                + " where id = " + id;
         Statement statement = null;
 
         try {
@@ -113,7 +112,7 @@ public abstract class Model {
         }
     }
 
-    final void insert() throws IllegalAccessException {
+    final void insert(boolean New) throws IllegalAccessException, NoSuchFieldException {
         Connection connection = db.getConnection();
         String sql;
         sql = "INSERT INTO " + this.getClass().getSimpleName().toLowerCase() + " VALUES ";
@@ -129,8 +128,15 @@ public abstract class Model {
 
             int index = 0;
             for(Field field : fields) {
+                if(New && index == 0) {
+                    statement.setObject(1, findMaxId()+1);
+                    index++;
+                    continue;
+                }
                 statement.setObject(++index, field.get(this));
             }
+
+            System.out.println(statement.toString());
 
             int rowsInserted = statement.executeUpdate();
 
@@ -150,7 +156,7 @@ public abstract class Model {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }  // ToDo add incrementing id
+    } 
 
     final void update() throws IllegalAccessException, NoSuchFieldException {
         Connection connection = db.getConnection();
@@ -179,7 +185,46 @@ public abstract class Model {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        insert();
+        insert(false);
+    }
+
+    final int findMaxId() throws NoSuchFieldException, IllegalAccessException {
+        int res = 0;
+        Connection connection = db.getConnection();
+        String sql;
+        sql = "SELECT max(id) as id FROM " + this.getClass().getSimpleName().toLowerCase();
+
+        Statement statement = null;
+
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ResultSet result = statement.executeQuery(sql);
+            if(result.next()) {
+                res = result.getInt(1);
+            }
+
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     final String prepareBrackets(String s) {
@@ -215,5 +260,6 @@ public abstract class Model {
 }
 
 class NullDataBaseExcepion extends  RuntimeException {}
+
 
 

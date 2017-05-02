@@ -48,12 +48,11 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
-        Ankieta ankieta = new Ankieta(8, "Nowaczek", 28);
+        Ankieta ankieta = new Ankieta();
         ankieta.setDb(db);
+        ankieta.get(4);
+        ankieta.nazwisko = "Kot";
         ankieta.save();
-        ankieta.wiek = 6;
-        ankieta.save();
-        ankieta.get(5);
         return ok(views.html.index.render(ankieta.id + " " + ankieta.nazwisko + " " + ankieta.wiek));
     }
 
