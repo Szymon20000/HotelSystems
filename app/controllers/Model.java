@@ -18,11 +18,11 @@ public abstract class Model {
             throw new NullDataBaseException();
         }
 
-        boolean fresh = true;
+        boolean insertNew = true;
 
         Connection connection = db.getConnection();
         String sql;
-        sql = "SELECT id FROM " + getClassName() + " where id = " + getId();
+        sql = "SELECT id FROM " + getClassName() + " WHERE id = " + getId();
 
         Statement statement = null;
 
@@ -31,7 +31,7 @@ public abstract class Model {
 
             ResultSet result = statement.executeQuery(sql);
             if(result.next()) {
-                fresh = false;
+                insertNew = false;
             }
 
             result.close();
@@ -41,7 +41,7 @@ public abstract class Model {
             e.printStackTrace();
         }
 
-        if(fresh) {
+        if(insertNew) {
             insert(true);
         } else {
             update();
@@ -55,7 +55,7 @@ public abstract class Model {
 
         Connection connection = db.getConnection();
         String sql;
-        sql = "SELECT * FROM " + getClassName() + " where id = " + id;
+        sql = "SELECT * FROM " + getClassName() + " WHERE id = " + id;
         Statement statement = null;
 
         try {
@@ -81,7 +81,7 @@ public abstract class Model {
         }
     }
 
-    final void insert(boolean fresh) throws IllegalAccessException, NoSuchFieldException {
+    final void insert(boolean insertNew) throws IllegalAccessException, NoSuchFieldException {
         Connection connection = db.getConnection();
         String sql;
         sql = "INSERT INTO " + getClassName() + " VALUES ";
@@ -95,7 +95,7 @@ public abstract class Model {
 
             int index = 0;
             for(Field field : fields) {
-                if(fresh && index == 0) {
+                if(insertNew && index == 0) {
                     statement.setObject(1, findMaxId()+1);
                     index++;
                     continue;
@@ -114,7 +114,7 @@ public abstract class Model {
     final void update() throws IllegalAccessException, NoSuchFieldException {
         Connection connection = db.getConnection();
         String sql;
-        sql = "DELETE  from " + getClassName() + " where id = " + getId();
+        sql = "DELETE  FROM " + getClassName() + " WHERE id = " + getId();
 
         PreparedStatement statement = null;
 
@@ -133,7 +133,7 @@ public abstract class Model {
         int res = 0;
         Connection connection = db.getConnection();
         String sql;
-        sql = "SELECT max(id) as id FROM " + this.getClass().getSimpleName().toLowerCase();
+        sql = "SELECT max(id) AS id FROM " + this.getClass().getSimpleName().toLowerCase();
 
         Statement statement = null;
 
