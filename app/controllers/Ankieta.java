@@ -1,11 +1,7 @@
 package controllers;
-
-
 import play.db.Database;
 
-/**
- * Created by szymon on 5/2/17.
- */
+
 public class Ankieta extends Model {
     Ankieta() { }
 

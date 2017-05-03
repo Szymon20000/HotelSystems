@@ -5,10 +5,6 @@ import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
-
-/**
- * Created by szymon on 5/1/17.
- */
 public abstract class Model {
 
     protected Database db;
@@ -133,38 +129,24 @@ public abstract class Model {
         int res = 0;
         Connection connection = db.getConnection();
         String sql;
-        sql = "SELECT max(id) AS id FROM " + this.getClass().getSimpleName().toLowerCase();
+        sql = "SELECT max(id) AS id FROM " + getClassName();
 
         Statement statement = null;
 
         try {
             statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
             ResultSet result = statement.executeQuery(sql);
             if(result.next()) {
                 res = result.getInt(1);
             }
 
             result.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
             statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return res;
     }
 
