@@ -1,15 +1,12 @@
 package controllers;
 
+import models.Ankieta;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.*;
 
 import javax.inject.Inject;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * This controller contains an action to handle HTTP requests

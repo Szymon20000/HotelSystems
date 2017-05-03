@@ -1,4 +1,4 @@
-package controllers;
+package models;
 
 import play.db.Database;
 import java.lang.reflect.Field;
@@ -13,7 +13,7 @@ public abstract class Model {
 
     protected Database db;
 
-    final void save() throws NoSuchFieldException, IllegalAccessException {
+    public final void save() throws NoSuchFieldException, IllegalAccessException {
         if(db == null) {
             throw new NullDataBaseException();
         }
@@ -48,7 +48,7 @@ public abstract class Model {
         }
     }
 
-    final void get(int id) throws NoSuchFieldException, IllegalAccessException {
+    public final void get(int id) throws NoSuchFieldException, IllegalAccessException {
         if(db == null) {
             throw new NullDataBaseException();
         }
@@ -195,7 +195,7 @@ public abstract class Model {
         return sb.toString();
     }
 
-    final void setDb(Database db) {
+    public final void setDb(Database db) {
         this.db = db;
     }
 
