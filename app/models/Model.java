@@ -112,6 +112,11 @@ public abstract class Model {
     }
 
     final void update() throws IllegalAccessException, NoSuchFieldException {
+        delete();
+        insert(false);
+    }
+
+    public final void delete() throws NoSuchFieldException, IllegalAccessException {
         Connection connection = db.getConnection();
         String sql;
         sql = "DELETE  FROM " + getClassName() + " WHERE id = " + getId();
@@ -126,7 +131,6 @@ public abstract class Model {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        insert(false);
     }
 
     final int findMaxId() throws NoSuchFieldException, IllegalAccessException {

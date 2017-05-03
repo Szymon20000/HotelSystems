@@ -24,20 +24,32 @@ public class Authenticator {
         return null;
     }
 
-    public static void logIn(String email, String pass) {
+    public static void logIn(String email, String pass) throws NoSuchFieldException, IllegalAccessException {
         User user = new User();
-        user.mail = email;
-        user.passHash = getHash(pass);
-        user.auth();
-        makeNewSession(user);
+        if(user.find("mail", email) && user.passHash == getHash(pass)) {
+            makeNewSession(user);
+        } else {
+            throw new NoSuchUserException();
+        }
     }
 
-    public static void LogOut() {
-        session().remove("sessionId");
+    public static void LogOut() throws NoSuchFieldException, IllegalAccessException {
+        if(session().containsKey("sessionId")) {
+            String sessionId = session().get("sessionId");
+            Session session = new Session();
+
+            if(session.find("sessionId", session.sessionId)) {
+                session.delete();
+            }
+            session().remove("sessionId");
+        }
     }
 
-    public static void SignUp(User user) {
-
+    public static void SignUp(User user) throws NoSuchFieldException, IllegalAccessException {
+        if(new User().find("mail", user.mail)) {
+            throw new ThereIsSuchUserNameException();
+        }
+        user.save();
     }
 
     public static String getHash(String pass) {
@@ -50,3 +62,6 @@ public class Authenticator {
 
 }
 
+class NoSuchUserException extends RuntimeException {}
+
+class ThereIsSuchUserNameException extends RuntimeException {}

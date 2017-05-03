@@ -20,14 +20,5 @@ public class User extends Model {
     public String mail;
     public String passHash;
     public boolean isAdmin;
-
-    public void auth() { // ToDo sql query
-        if() {
-
-        } else {
-            throw new NoSuchUserException();
-        }
-    }
 }
 
-class NoSuchUserException extends RuntimeException {}
