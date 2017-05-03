@@ -168,6 +168,43 @@ public abstract class Model {
         return res;
     }
 
+    public final boolean find(String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
+        if(db == null) {
+            throw new NullDataBaseException();
+        }
+
+        boolean found = false;
+
+        Connection connection = db.getConnection();
+        String sql;
+        sql = "SELECT * FROM " + getClassName() + " WHERE "+ makeSql(fieldName) + " = ?";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setObject(1, val);
+            ResultSet result = statement.executeQuery();
+
+            if(!result.next()) {
+                found = false;
+            } else {
+                Field[] fields = this.getClass().getDeclaredFields();
+
+                for(Field field : fields) {
+                    field.set(this, result.getObject(makeSql(field.getName())));
+                }
+                found = true;
+            }
+
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return found;
+    }
+
     final String prepareBrackets(String s) {
         Field[] fields = this.getClass().getDeclaredFields();
 
