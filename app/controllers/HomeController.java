@@ -47,37 +47,13 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
-        Connection connection = db.getConnection();
-        Statement stmt = null;
-
-        int id = 5;
-        int wiek= 5;
-        String nazwisko = "temp";
-
-        try {
-            stmt = connection.createStatement();
-            String sql = "SELECT * FROM ankiety";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while(rs.next()){
-                id  = rs.getInt("id");
-                wiek = rs.getInt("wiek");
-                nazwisko = rs.getString("nazwisko");
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            nazwisko = e.getMessage();
-            e.printStackTrace();
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ok(views.html.index.render(id + " " + wiek + " " + nazwisko));
+    public Result index() throws NoSuchFieldException, IllegalAccessException {
+        Ankieta ankieta = new Ankieta();
+        ankieta.setDb(db);
+        ankieta.get(4);
+        ankieta.nazwisko = "Kot";
+        ankieta.save();
+        return ok(views.html.index.render(ankieta.id + " " + ankieta.nazwisko + " " + ankieta.wiek));
     }
 
 }
