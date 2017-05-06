@@ -3,9 +3,6 @@ package authorization.models;
 import authorization.Authenticator;
 import models.Model;
 
-/**
- * Created by szymon on 5/3/17.
- */
 public class User extends Model {
 
     public User() {}

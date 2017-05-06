@@ -5,13 +5,9 @@ import authorization.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Date;
-import java.util.Random;
 
 import static play.mvc.Controller.session;
 
-/**
- * Created by szymon on 5/3/17.
- */
 public class Authenticator {
 
     public static User getUser() throws NoSuchFieldException, IllegalAccessException {
