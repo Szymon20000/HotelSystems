@@ -13,7 +13,7 @@ public class Classes {
     @Constraints.Required
     public BigDecimal basePrice;
 
-    Classes() {}
+    public Classes() {}
 
     public Integer getId() {
         return id;

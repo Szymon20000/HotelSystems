@@ -15,7 +15,7 @@ public class Departments {
     @Constraints.Required
     public Integer leader;
 
-    Departments() {}
+    public Departments() {}
 
     public Integer getId() {
         return id;

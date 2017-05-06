@@ -15,7 +15,7 @@ public class Guests {
     @Constraints.Required
     public Integer booker;
 
-    Guests() {}
+    public Guests() {}
 
     public Integer getId() {
         return id;

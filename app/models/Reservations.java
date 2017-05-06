@@ -18,7 +18,7 @@ public class Reservations {
     @Constraints.Required
     public Integer idNotification;
 
-    Reservations() {}
+    public Reservations() {}
 
     public Integer getId() {
         return id;

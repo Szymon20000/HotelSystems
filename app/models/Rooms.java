@@ -16,7 +16,7 @@ public class Rooms {
     @Constraints.Required
     public Integer floor;
 
-    Rooms() {}
+    public Rooms() {}
 
     public Integer getId() {
         return id;

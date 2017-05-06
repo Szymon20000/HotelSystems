@@ -15,7 +15,7 @@ public class Payments {
     @Constraints.Required
     public Boolean cash;
 
-    Payments() {}
+    public Payments() {}
 
     public Integer getId() {
         return id;

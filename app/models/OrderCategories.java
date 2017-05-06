@@ -16,7 +16,7 @@ public class OrderCategories {
     @Constraints.Required
     public Boolean availability;
 
-    OrderCategories() {}
+    public OrderCategories() {}
 
     public Integer getId() {
         return id;

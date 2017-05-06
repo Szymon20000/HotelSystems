@@ -9,7 +9,7 @@ public class NotificationTypes {
     @Constraints.MaxLength(200)
     public String name;
 
-    NotificationTypes() {}
+    public NotificationTypes() {}
 
     public int getId() {
         return id;

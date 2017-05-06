@@ -16,7 +16,7 @@ public class Orders {
     @Constraints.Required
     public Integer idNotification;
 
-    Orders() {}
+    public Orders() {}
 
     public Integer getId() {
         return id;
