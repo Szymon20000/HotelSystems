@@ -39,15 +39,19 @@ public class Authenticator {
         }
     }
 
-    public static void logOut() throws NoSuchFieldException, IllegalAccessException {
-        if(session().containsKey("sessionId")) {
-            String sessionId = session().get("sessionId");
-            Session session = new Session();
+    public static void logOut() {
+        try {
+            if(session().containsKey("sessionId")) {
+                String sessionId = session().get("sessionId");
+                Session session = new Session();
 
-            if(session.load("sessionId", session.sessionId)) {
-                session.delete();
+                if(session.load("sessionId", session.sessionId)) {
+                    session.delete();
+                }
+                session().remove("sessionId");
             }
-            session().remove("sessionId");
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
