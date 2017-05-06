@@ -46,8 +46,7 @@ public class HomeController extends Controller {
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
         Ankieta ankieta = new Ankieta();
-        ankieta.setDb(db);
-        ankieta.find("nazwisko", "Kot");
+        ankieta.load("nazwisko", "Kot");
         ankieta.nazwisko = "Kota";
         ankieta.save();
         return ok(views.html.index.render(ankieta.id + " " + ankieta.nazwisko + " " + ankieta.wiek));
