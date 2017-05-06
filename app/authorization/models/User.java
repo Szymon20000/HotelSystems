@@ -4,19 +4,50 @@ import authorization.Authenticator;
 import models.Model;
 
 public class User extends Model {
+    public Integer id;
+    public String email;
+    public String passHash;
+    public Boolean isAdmin;
 
     public User() {}
 
-    public User(int id, String mail, String pass, boolean isAdmin) {
-        this.id = id;
-        this.mail = mail;
-        this.passHash = Authenticator.getHash(pass);
-        this.isAdmin = isAdmin;
+    public User(Integer id, String email, String pass, Boolean isAdmin) {
+        setId(id);
+        setEmail(email);
+        setPassHash(pass);
+        setIsAdmin(isAdmin);
     }
 
-    public int id;
-    public String mail;
-    public String passHash;
-    public boolean isAdmin;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassHash() {
+        return passHash;
+    }
+
+    public void setPassHash(String passHash) {
+        this.passHash = Authenticator.getHash(passHash);
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 }
 
