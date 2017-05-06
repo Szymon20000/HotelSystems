@@ -1,6 +1,9 @@
 package authorization.models;
 
+import play.data.validation.Constraints;
+
 public class UserForm extends User {
+    @Constraints.Required
     public String pass;
 
     @Override

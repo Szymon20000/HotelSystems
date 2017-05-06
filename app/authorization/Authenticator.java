@@ -51,7 +51,7 @@ public class Authenticator {
                 session().remove("sessionId");
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            throw new DatabaseException();
         }
     }
 
@@ -84,4 +84,3 @@ public class Authenticator {
     }
 
 }
-

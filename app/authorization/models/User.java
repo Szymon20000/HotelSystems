@@ -2,10 +2,13 @@ package authorization.models;
 
 import authorization.Authenticator;
 import models.Model;
+import play.data.validation.Constraints;
 
 public class User extends Model {
     public Integer id;
+    @Constraints.Required
     public String email;
+    @Constraints.Required
     public String passHash;
     public Boolean isAdmin;
 
