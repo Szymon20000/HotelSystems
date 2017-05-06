@@ -1,15 +1,12 @@
 package controllers;
 
+import models.Ankieta;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.*;
 
 import javax.inject.Inject;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -49,9 +46,8 @@ public class HomeController extends Controller {
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
         Ankieta ankieta = new Ankieta();
-        ankieta.setDb(db);
-        ankieta.get(4);
-        ankieta.nazwisko = "Kot";
+        ankieta.load("nazwisko", "Kot");
+        ankieta.nazwisko = "Kota";
         ankieta.save();
         return ok(views.html.index.render(ankieta.id + " " + ankieta.nazwisko + " " + ankieta.wiek));
     }
