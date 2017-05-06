@@ -1,7 +1,7 @@
 package controllers.auth;
 
 import authorization.Authenticator;
-import authorization.models.User;
+import authorization.models.UserForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
@@ -19,20 +19,19 @@ public class LoginController extends AuthController {
     }
 
     public Result get() {
-        Form<User> form = formFactory.form(User.class);
+        Form<UserForm> form = formFactory.form(UserForm.class);
         Http.Context context = Http.Context.current();
         return ok(views.html.auth_views.login.render(form, context.messages()));
     }
 
     public Result post() {
-        Form<User> form = formFactory.form(User.class).bindFromRequest();
+        Form<UserForm> form = formFactory.form(UserForm.class).bindFromRequest();
         Http.Context context = Http.Context.current();
         if(form.hasErrors()) {
             return ok(views.html.auth_views.login.render(form, context.messages()));
         }
-        User user = form.get();
-        user.setDb(db);
+        UserForm user = form.get();
         Authenticator.logIn(user);
-        return ok(user.email + " " + user.passHash);
+        return ok(user.email + " " + user.pass);
     }
 }

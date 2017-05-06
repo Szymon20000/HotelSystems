@@ -2,6 +2,7 @@ package authorization;
 
 import authorization.models.Session;
 import authorization.models.User;
+import authorization.models.UserForm;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Date;
@@ -24,15 +25,15 @@ public class Authenticator {
         return null;
     }
 
-    public static void logIn(User user, String pass) {
-        User dbUser = new User();
+    public static void logIn(UserForm user) {
         try {
-            if(dbUser.load("email", user.getEmail()) && checkPass(pass, dbUser.getPassHash())) {
-                makeNewSession(user);
+            User dbUser = User.find("email", user.getEmail(), User.class);
+            if(dbUser != null && checkPass(user.getPass(), dbUser.getPassHash())) {
+                makeNewSession(dbUser);
             } else {
                 throw new NoSuchUserException();
             }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException | InstantiationException e) {
             throw new NoSuchUserException();
         }
     }
@@ -68,7 +69,7 @@ public class Authenticator {
         final int LEN_OF_SESSION_ID = 20;
         final long TEN_DAYS = 1000*3600*24*10;
         Session session = new Session(0, "0", user.id, new Date().getTime() + TEN_DAYS);
-        session.getNewId(LEN_OF_SESSION_ID);
+        session.sessionId = session.getNewId(LEN_OF_SESSION_ID);
         session.save();
         session().put("sessionId", session.sessionId);
     }
