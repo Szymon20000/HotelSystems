@@ -24,7 +24,7 @@ public class Session extends Model {
         String tempId;
         while(true) {
             tempId = drawId(len);
-            if(!(new Session().load("sessionId", id))) {
+            if(!(new Session().load("sessionId", tempId))) {
                 break;
             }
         }

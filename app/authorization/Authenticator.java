@@ -2,7 +2,6 @@ package authorization;
 
 import authorization.models.Session;
 import authorization.models.User;
-import authorization.models.UserForm;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Date;
@@ -25,10 +24,10 @@ public class Authenticator {
         return null;
     }
 
-    public static void logIn(UserForm user) {
+    public static void logIn(String email, String pass) {
         try {
-            User dbUser = User.find("email", user.getEmail(), User.class);
-            if(dbUser != null && checkPass(user.getPass(), dbUser.getPassHash())) {
+            User dbUser = User.find("email", email, User.class);
+            if(dbUser != null && checkPass(pass, dbUser.getPassHash())) {
                 makeNewSession(dbUser);
             } else {
                 throw new NoSuchUserException();
@@ -52,7 +51,7 @@ public class Authenticator {
 
     public static void signUp(User user) throws NoSuchFieldException, IllegalAccessException {
         if(new User().load("email", user.email)) {
-            throw new ThereIsSuchUserNameException();
+            throw new UsernameAlreadyExistsException();
         }
         user.save();
     }
@@ -76,6 +75,3 @@ public class Authenticator {
 
 }
 
-class NoSuchUserException extends RuntimeException {}
-
-class ThereIsSuchUserNameException extends RuntimeException {}

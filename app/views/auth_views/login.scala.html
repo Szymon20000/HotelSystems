@@ -5,6 +5,14 @@
 
 @main("Log in") {
 
+  @if(form.hasGlobalErrors) {
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      @form.globalError.message
+    </div>
+  }
+
   @b3.form(auth.routes.LoginController.post) {
     @CSRF.formField
     @b3.email( form("email"), '_label -> "E-mail", 'placeholder -> "example@mail.com" )

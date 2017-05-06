@@ -1,6 +1,5 @@
 package controllers.auth;
 
-import authorization.Authenticator;
 import authorization.models.UserForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -31,7 +30,6 @@ public class LoginController extends AuthController {
             return ok(views.html.auth_views.login.render(form, context.messages()));
         }
         UserForm user = form.get();
-        Authenticator.logIn(user);
         return ok(user.email + " " + user.pass);
     }
 }
