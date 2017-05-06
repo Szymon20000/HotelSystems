@@ -1,12 +1,5 @@
 package authorization.models;
 
-import authorization.Authenticator;
-import authorization.NoSuchUserException;
-import play.data.validation.ValidationError;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserForm extends User {
     public String pass;
 
@@ -15,16 +8,8 @@ public class UserForm extends User {
         throw new UnsupportedOperationException();
     }
 
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<>();
-        try {
-            Authenticator.logIn(email, pass);
-        }
-        catch (NoSuchUserException e) {
-            errors.add(new ValidationError("", "Authorization failed"));
-        }
-
-        return errors;
+    public User convertToUser() {
+        return new User(id, email, pass, isAdmin);
     }
 
     public void setPass(String pass) {

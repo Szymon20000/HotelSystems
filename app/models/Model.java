@@ -269,7 +269,10 @@ public abstract class Model {
     }
 
     String getId() throws NoSuchFieldException, IllegalAccessException {
-        return this.getClass().getDeclaredField("id").get(this).toString();
+        Object id = this.getClass().getDeclaredField("id").get(this);
+        if(id == null)
+            return null;
+        return id.toString();
     }
 
     String getClassName() {
@@ -277,6 +280,4 @@ public abstract class Model {
     }
 }
 
-class NullDataBaseException extends  RuntimeException {}
-
-
+class NullDataBaseException extends DatabaseException {}
