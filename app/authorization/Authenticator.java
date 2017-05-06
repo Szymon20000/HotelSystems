@@ -5,13 +5,9 @@ import authorization.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Date;
-import java.util.Random;
 
 import static play.mvc.Controller.session;
 
-/**
- * Created by szymon on 5/3/17.
- */
 public class Authenticator {
 
     public static User getUser() throws NoSuchFieldException, IllegalAccessException {
@@ -28,16 +24,20 @@ public class Authenticator {
         return null;
     }
 
-    public static void logIn(String email, String pass) throws NoSuchFieldException, IllegalAccessException {
-        User user = new User();
-        if(user.find("mail", email) && checkPass(pass, user.passHash)) {
-            makeNewSession(user);
-        } else {
+    public static void logIn(User user) {
+        User dbUser = new User();
+        try {
+            if(dbUser.find("email", user.getEmail()) && checkPass(user.getPassHash(), dbUser.getPassHash())) {
+                makeNewSession(user);
+            } else {
+                throw new NoSuchUserException();
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new NoSuchUserException();
         }
     }
 
-    public static void LogOut() throws NoSuchFieldException, IllegalAccessException {
+    public static void logOut() throws NoSuchFieldException, IllegalAccessException {
         if(session().containsKey("sessionId")) {
             String sessionId = session().get("sessionId");
             Session session = new Session();
@@ -49,11 +49,10 @@ public class Authenticator {
         }
     }
 
-    public static void SignUp(User user, String pass) throws NoSuchFieldException, IllegalAccessException {
-        if(new User().find("mail", user.mail)) {
+    public static void signUp(User user) throws NoSuchFieldException, IllegalAccessException {
+        if(new User().find("email", user.email)) {
             throw new ThereIsSuchUserNameException();
         }
-        user.passHash = getHash(pass);
         user.save();
     }
 
