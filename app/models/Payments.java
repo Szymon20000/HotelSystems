@@ -2,13 +2,15 @@ package models;
 
 import play.data.validation.Constraints;
 
+import java.math.BigDecimal;
+
 public class Payments {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
     public Integer idOrder;
     @Constraints.Required
-    public Double amount;
+    public BigDecimal amount;
     public String description;
     @Constraints.Required
     public Boolean cash;
@@ -31,11 +33,11 @@ public class Payments {
         this.idOrder = idOrder;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

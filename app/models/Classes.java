@@ -1,6 +1,9 @@
 package models;
 
 import play.data.validation.Constraints;
+
+import java.math.BigDecimal;
+
 public class Classes {
     @Constraints.Required
     public Integer id;
@@ -8,7 +11,7 @@ public class Classes {
     @Constraints.Max(200)
     public String name;
     @Constraints.Required
-    public Double basePrice;
+    public BigDecimal basePrice;
 
     Classes() {}
 
@@ -28,11 +31,11 @@ public class Classes {
         this.name = name;
     }
 
-    public Double getBasePrice() {
+    public BigDecimal getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(Double basePrice) {
+    public void setBasePrice(BigDecimal basePrice) {
         this.basePrice = basePrice;
     }
 }

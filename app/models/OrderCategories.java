@@ -2,6 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderCategories {
@@ -10,7 +11,7 @@ public class OrderCategories {
     @Constraints.Required
     @Constraints.MaxLength(200)
     public String name;
-    public Double price;
+    public BigDecimal price;
     public Date orderDate;
     @Constraints.Required
     public Boolean availability;
@@ -33,11 +34,11 @@ public class OrderCategories {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

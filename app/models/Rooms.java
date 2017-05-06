@@ -2,11 +2,13 @@ package models;
 
 import play.data.validation.Constraints;
 
+import java.math.BigDecimal;
+
 public class Rooms {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
-    public Double price;
+    public BigDecimal price;
     @Constraints.Required
     public Integer nuberOfBeds;
     @Constraints.Required
@@ -24,11 +26,11 @@ public class Rooms {
         this.id = id;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

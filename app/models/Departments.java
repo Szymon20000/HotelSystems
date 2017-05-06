@@ -1,6 +1,9 @@
 package models;
 
 import play.data.validation.Constraints;
+
+import java.math.BigDecimal;
+
 public class Departments {
     @Constraints.Required
     public Integer id;
@@ -8,7 +11,7 @@ public class Departments {
     @Constraints.MaxLength(100)
     public String name;
     @Constraints.Required
-    public Double salary;
+    public BigDecimal salary;
     @Constraints.Required
     public Integer leader;
 
@@ -30,11 +33,11 @@ public class Departments {
         this.name = name;
     }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

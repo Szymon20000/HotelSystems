@@ -1,6 +1,9 @@
 package models;
 
 import play.data.validation.Constraints;
+
+import java.math.BigDecimal;
+
 public class Employees {
     @Constraints.Required
     public Integer id;
@@ -17,7 +20,7 @@ public class Employees {
     public String mail;
     @Constraints.Required
     public Integer idDepartment;
-    public Double bonus;
+    public BigDecimal bonus;
 
     public Employees() {}
 
@@ -69,11 +72,11 @@ public class Employees {
         this.idDepartment = idDepartment;
     }
 
-    public Double getBonus() {
+    public BigDecimal getBonus() {
         return bonus;
     }
 
-    public void setBonus(Double bonus) {
+    public void setBonus(BigDecimal bonus) {
         this.bonus = bonus;
     }
 }
