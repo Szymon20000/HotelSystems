@@ -4,54 +4,54 @@ import play.data.validation.Constraints;
 
 public class Payments {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
-    public int IdOrder;
+    public Integer idOrder;
     @Constraints.Required
-    public double Amount;
-    public String Description;
+    public Double amount;
+    public String description;
     @Constraints.Required
-    public Boolean Cash;
+    public Boolean cash;
 
     Payments() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getIdOrder() {
-        return IdOrder;
+    public Integer getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdOrder(int idOrder) {
-        IdOrder = idOrder;
+    public void setIdOrder(Integer idOrder) {
+        this.idOrder = idOrder;
     }
 
-    public double getAmount() {
-        return Amount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setAmount(double amount) {
-        Amount = amount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Boolean getCash() {
-        return Cash;
+        return cash;
     }
 
     public void setCash(Boolean cash) {
-        Cash = cash;
+        this.cash = cash;
     }
 }

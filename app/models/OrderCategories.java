@@ -6,54 +6,54 @@ import java.util.Date;
 
 public class OrderCategories {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Name;
-    public double Price;
-    public Date OrderDate;
+    public String name;
+    public Double price;
+    public Date orderDate;
     @Constraints.Required
-    public Boolean Availability;
+    public Boolean availability;
 
     OrderCategories() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public double getPrice() {
-        return Price;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrice(double price) {
-        Price = price;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Date getOrderDate() {
-        return OrderDate;
+        return orderDate;
     }
 
     public void setOrderDate(Date orderDate) {
-        OrderDate = orderDate;
+        this.orderDate = orderDate;
     }
 
     public Boolean getAvailability() {
-        return Availability;
+        return availability;
     }
 
     public void setAvailability(Boolean availability) {
-        Availability = availability;
+        this.availability = availability;
     }
 }

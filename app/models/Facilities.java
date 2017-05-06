@@ -1,47 +1,48 @@
 package models;
 
 import play.data.validation.Constraints;
+
 public class Facilities {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Name;
-    public String Description;
+    public String name;
+    public String description;
     @Constraints.Required
-    public int ResponsibleWorker;
+    public Integer responsibleWorker;
 
     public Facilities() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public int getResponsibleWorker() {
-        return ResponsibleWorker;
+    public Integer getResponsibleWorker() {
+        return responsibleWorker;
     }
 
-    public void setResponsibleWorker(int responsibleWorker) {
-        ResponsibleWorker = responsibleWorker;
+    public void setResponsibleWorker(Integer responsibleWorker) {
+        this.responsibleWorker = responsibleWorker;
     }
 }

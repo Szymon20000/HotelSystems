@@ -4,36 +4,36 @@ import play.data.validation.Constraints;
 
 public class Photos {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
-    public int IdFacility;
+    public Integer idFacility;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Filepath;
+    public String filepath;
 
     public Photos() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getIdFacility() {
-        return IdFacility;
+    public Integer getIdFacility() {
+        return idFacility;
     }
 
-    public void setIdFacility(int idFacility) {
-        IdFacility = idFacility;
+    public void setIdFacility(Integer idFacility) {
+        this.idFacility = idFacility;
     }
 
     public String getFilepath() {
-        return Filepath;
+        return filepath;
     }
 
     public void setFilepath(String filepath) {
-        Filepath = filepath;
+        this.filepath = filepath;
     }
 }

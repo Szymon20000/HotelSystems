@@ -4,26 +4,26 @@ import play.data.validation.Constraints;
 
 public class NotificationTypes {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Name;
+    public String name;
 
     NotificationTypes() {}
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 }

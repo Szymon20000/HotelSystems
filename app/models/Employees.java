@@ -3,77 +3,77 @@ package models;
 import play.data.validation.Constraints;
 public class Employees {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Name;
+    public String name;
     @Constraints.Required
     @Constraints.MaxLength(300)
-    public String Address;
+    public String address;
     @Constraints.Required
     @Constraints.MaxLength(50)
-    public String Phone;
+    public String phone;
     @Constraints.MaxLength(100)
-    public String Mail;
+    public String mail;
     @Constraints.Required
-    public int IdDepartment;
-    public double Bonus;
+    public Integer idDepartment;
+    public Double bonus;
 
     public Employees() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getMail() {
-        return Mail;
+        return mail;
     }
 
     public void setMail(String mail) {
-        Mail = mail;
+        this.mail = mail;
     }
 
-    public int getIdDepartment() {
-        return IdDepartment;
+    public Integer getIdDepartment() {
+        return idDepartment;
     }
 
-    public void setIdDepartment(int idDepartment) {
-        IdDepartment = idDepartment;
+    public void setIdDepartment(Integer idDepartment) {
+        this.idDepartment = idDepartment;
     }
 
-    public double getBonus() {
-        return Bonus;
+    public Double getBonus() {
+        return bonus;
     }
 
-    public void setBonus(double bonus) {
-        Bonus = bonus;
+    public void setBonus(Double bonus) {
+        this.bonus = bonus;
     }
 }

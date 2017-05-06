@@ -3,45 +3,46 @@ package models;
 import play.data.validation.Constraints;
 public class Departments {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(100)
-    public String Name;
+    public String name;
     @Constraints.Required
-    public double Salary;
+    public Double salary;
     @Constraints.Required
-    public int Leader;
+    public Integer leader;
 
+    Departments() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public double getSalary() {
-        return Salary;
+    public Double getSalary() {
+        return salary;
     }
 
-    public void setSalary(double salary) {
-        Salary = salary;
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
-    public int getLeader() {
-        return Leader;
+    public Integer getLeader() {
+        return leader;
     }
 
-    public void setLeader(int leader) {
-        Leader = leader;
+    public void setLeader(Integer leader) {
+        this.leader = leader;
     }
 }

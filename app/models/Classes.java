@@ -3,36 +3,36 @@ package models;
 import play.data.validation.Constraints;
 public class Classes {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.Max(200)
-    public String Name;
+    public String name;
     @Constraints.Required
-    public double BasePrice;
+    public Double basePrice;
 
     Classes() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public double getBasePrice() {
-        return BasePrice;
+    public Double getBasePrice() {
+        return basePrice;
     }
 
-    public void setBasePrice(double basePrice) {
-        BasePrice = basePrice;
+    public void setBasePrice(Double basePrice) {
+        this.basePrice = basePrice;
     }
 }

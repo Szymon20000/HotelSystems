@@ -7,62 +7,61 @@ import java.util.Date;
 
 public class Notifications {
     @Constraints.Required
-    public int Id;
-    public int IdType;
-    public int IdDepartment;
-    public int Priority;
-    public Date ReceivedTime;
+    public Integer id;
+    public Integer idType;
+    public Integer idDepartment;
+    public Integer priority;
+    public Date receivedTime;
     @Constraints.Required
-    public Boolean Done;
-
+    public Boolean done;
 
     public Notifications() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getIdType() {
-        return IdType;
+    public Integer getIdType() {
+        return idType;
     }
 
-    public void setIdType(int idType) {
-        IdType = idType;
+    public void setIdType(Integer idType) {
+        this.idType = idType;
     }
 
-    public int getIdDepartment() {
-        return IdDepartment;
+    public Integer getIdDepartment() {
+        return idDepartment;
     }
 
-    public void setIdDepartment(int idDepartment) {
-        IdDepartment = idDepartment;
+    public void setIdDepartment(Integer idDepartment) {
+        this.idDepartment = idDepartment;
     }
 
-    public int getPriority() {
-        return Priority;
+    public Integer getPriority() {
+        return priority;
     }
 
-    public void setPriority(int priority) {
-        Priority = priority;
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Date getReceivedTime() {
-        return ReceivedTime;
+        return receivedTime;
     }
 
     public void setReceivedTime(Date receivedTime) {
-        ReceivedTime = receivedTime;
+        this.receivedTime = receivedTime;
     }
 
     public Boolean getDone() {
-        return Done;
+        return done;
     }
 
     public void setDone(Boolean done) {
-        Done = done;
+        this.done = done;
     }
 }

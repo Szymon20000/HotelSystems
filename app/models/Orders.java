@@ -6,55 +6,55 @@ import java.util.Date;
 
 public class Orders {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
-    public int IdGuest;
-    public Date ReceivedDate;
+    public Integer idGuest;
+    public Date receivedDate;
     @Constraints.Required
-    public int IdOrderCategories;
+    public Integer idOrderCategories;
 
     @Constraints.Required
-    public int IdNotification;
+    public Integer idNotification;
 
     Orders() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
-    public int getIdGuest() {
-        return IdGuest;
+    public Integer getIdGuest() {
+        return idGuest;
     }
 
     public void setIdGuest(int idGuest) {
-        IdGuest = idGuest;
+        idGuest = idGuest;
     }
 
     public Date getReceivedDate() {
-        return ReceivedDate;
+        return receivedDate;
     }
 
     public void setReceivedDate(Date receivedDate) {
-        ReceivedDate = receivedDate;
+        receivedDate = receivedDate;
     }
 
-    public int getIdOrderCategories() {
-        return IdOrderCategories;
+    public Integer getIdOrderCategories() {
+        return idOrderCategories;
     }
 
     public void setIdOrderCategories(int idOrderCategories) {
-        IdOrderCategories = idOrderCategories;
+        idOrderCategories = idOrderCategories;
     }
 
-    public int getIdNotification() {
-        return IdNotification;
+    public Integer getIdNotification() {
+        return idNotification;
     }
 
     public void setIdNotification(int idNotification) {
-        IdNotification = idNotification;
+        idNotification = idNotification;
     }
 }

@@ -6,65 +6,65 @@ import java.util.Date;
 
 public class Reservations {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
-    public int IdRoom;
+    public Integer idRoom;
     @Constraints.Required
-    public int IdGuest;
+    public Integer idGuest;
     @Constraints.Required
-    public Date DateFrom;
+    public Date dateFrom;
     @Constraints.Required
-    public Date DateTo;
+    public Date dateTo;
     @Constraints.Required
-    public int IdNotification;
+    public Integer idNotification;
 
     Reservations() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
-    public int getIdRoom() {
-        return IdRoom;
+    public Integer getIdRoom() {
+        return idRoom;
     }
 
     public void setIdRoom(int idRoom) {
-        IdRoom = idRoom;
+        idRoom = idRoom;
     }
 
-    public int getIdGuest() {
-        return IdGuest;
+    public Integer getIdGuest() {
+        return idGuest;
     }
 
     public void setIdGuest(int idGuest) {
-        IdGuest = idGuest;
+        idGuest = idGuest;
     }
 
     public Date getDateFrom() {
-        return DateFrom;
+        return dateFrom;
     }
 
     public void setDateFrom(Date dateFrom) {
-        DateFrom = dateFrom;
+        dateFrom = dateFrom;
     }
 
     public Date getDateTo() {
-        return DateTo;
+        return dateTo;
     }
 
     public void setDateTo(Date dateTo) {
-        DateTo = dateTo;
+        dateTo = dateTo;
     }
 
-    public int getIdNotification() {
-        return IdNotification;
+    public Integer getIdNotification() {
+        return idNotification;
     }
 
     public void setIdNotification(int idNotification) {
-        IdNotification = idNotification;
+        idNotification = idNotification;
     }
 }

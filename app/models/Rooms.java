@@ -4,55 +4,55 @@ import play.data.validation.Constraints;
 
 public class Rooms {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
-    public double Price;
+    public Double price;
     @Constraints.Required
-    public int NuberOfBeds;
+    public Integer nuberOfBeds;
     @Constraints.Required
-    public int IdClass;
+    public Integer idClass;
     @Constraints.Required
-    public int Floor;
+    public Integer floor;
 
     Rooms() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public double getPrice() {
-        return Price;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrice(double price) {
-        Price = price;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public int getNuberOfBeds() {
-        return NuberOfBeds;
+    public Integer getNuberOfBeds() {
+        return nuberOfBeds;
     }
 
-    public void setNuberOfBeds(int nuberOfBeds) {
-        NuberOfBeds = nuberOfBeds;
+    public void setNuberOfBeds(Integer nuberOfBeds) {
+        this.nuberOfBeds = nuberOfBeds;
     }
 
-    public int getIdClass() {
-        return IdClass;
+    public Integer getIdClass() {
+        return idClass;
     }
 
-    public void setIdClass(int idClass) {
-        IdClass = idClass;
+    public void setIdClass(Integer idClass) {
+        this.idClass = idClass;
     }
 
-    public int getFloor() {
-        return Floor;
+    public Integer getFloor() {
+        return floor;
     }
 
-    public void setFloor(int floor) {
-        Floor = floor;
+    public void setFloor(Integer floor) {
+        this.floor = floor;
     }
 }

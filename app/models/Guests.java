@@ -3,57 +3,57 @@ package models;
 import play.data.validation.Constraints;
 public class Guests {
     @Constraints.Required
-    public int Id;
+    public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
-    public String Name;
+    public String name;
     @Constraints.Required
     @Constraints.MaxLength(50)
-    public String Phone;
+    public String phone;
     @Constraints.MaxLength(100)
-    public String Mail;
+    public String mail;
     @Constraints.Required
-    public int Booker;
+    public Integer booker;
 
     Guests() {}
 
-    public int getId() {
-        return Id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getMail() {
-        return Mail;
+        return mail;
     }
 
     public void setMail(String mail) {
-        Mail = mail;
+        this.mail = mail;
     }
 
-    public int getBooker() {
-        return Booker;
+    public Integer getBooker() {
+        return booker;
     }
 
-    public void setBooker(int booker) {
-        Booker = booker;
+    public void setBooker(Integer booker) {
+        this.booker = booker;
     }
 }
