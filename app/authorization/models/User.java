@@ -8,7 +8,6 @@ public class User extends Model {
     public Integer id;
     @Constraints.Required
     public String email;
-    @Constraints.Required
     public String passHash;
     public Boolean isAdmin;
 
