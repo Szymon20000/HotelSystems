@@ -1,9 +1,5 @@
 package models;
 
-
-/**
- * Created by szymon on 5/2/17.
- */
 public class Ankieta extends Model {
     public Ankieta() { }
 
