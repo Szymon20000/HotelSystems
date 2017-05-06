@@ -1,23 +1,21 @@
-CREATE SCHEMA hotelsystems;
-
-CREATE TABLE hotelsystems.classes ( 
+CREATE TABLE classes (
 	id                   serial  NOT NULL,
 	name                 varchar(100)  NOT NULL,
 	base_price           numeric(8,2)  ,
 	CONSTRAINT pk_classes PRIMARY KEY ( id )
  );
 
-COMMENT ON TABLE hotelsystems.classes IS 'Different types of room standard';
+COMMENT ON TABLE classes IS 'Different types of room standard';
 
-COMMENT ON COLUMN hotelsystems.classes.base_price IS 'Base price is only an information for setting price for a particular room.';
+COMMENT ON COLUMN classes.base_price IS 'Base price is only an information for setting price for a particular room.';
 
-CREATE TABLE hotelsystems.notification_types ( 
+CREATE TABLE notification_types ( 
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	CONSTRAINT pk_notification_types PRIMARY KEY ( id )
  );
 
-CREATE TABLE hotelsystems.order_categories ( 
+CREATE TABLE order_categories ( 
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	price                numeric(8,2)  ,
@@ -26,7 +24,7 @@ CREATE TABLE hotelsystems.order_categories (
 	CONSTRAINT pk_order_categories PRIMARY KEY ( id )
  );
 
-CREATE TABLE hotelsystems.rooms ( 
+CREATE TABLE rooms ( 
 	id                   integer  NOT NULL,
 	price                numeric(8,2)  NOT NULL,
 	number_of_beds       integer  NOT NULL,
@@ -35,9 +33,9 @@ CREATE TABLE hotelsystems.rooms (
 	CONSTRAINT pk_rooms PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_rooms ON hotelsystems.rooms ( id_class );
+CREATE INDEX idx_rooms ON rooms ( id_class );
 
-CREATE TABLE hotelsystems.cooperating_companies ( 
+CREATE TABLE cooperating_companies ( 
 	id                   serial  NOT NULL,
 	name                 varchar(300)  NOT NULL,
 	phone                varchar(50)  NOT NULL,
@@ -46,9 +44,9 @@ CREATE TABLE hotelsystems.cooperating_companies (
 	CONSTRAINT pk_cooperating_companies PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_cooperating_companies ON hotelsystems.cooperating_companies ( responsible_worker );
+CREATE INDEX idx_cooperating_companies ON cooperating_companies ( responsible_worker );
 
-CREATE TABLE hotelsystems.departments ( 
+CREATE TABLE departments ( 
 	id                   serial  NOT NULL,
 	name                 varchar(100)  NOT NULL,
 	salary               numeric(8,2)  NOT NULL,
@@ -56,9 +54,9 @@ CREATE TABLE hotelsystems.departments (
 	CONSTRAINT pk_sections PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_sections ON hotelsystems.departments ( leader );
+CREATE INDEX idx_sections ON departments ( leader );
 
-CREATE TABLE hotelsystems.employees ( 
+CREATE TABLE employees ( 
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	address              varchar(300)  NOT NULL,
@@ -69,11 +67,11 @@ CREATE TABLE hotelsystems.employees (
 	CONSTRAINT pk_employees PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_employees ON hotelsystems.employees ( id_department );
+CREATE INDEX idx_employees ON employees ( id_department );
 
-COMMENT ON COLUMN hotelsystems.employees.bonus IS 'Bonus to salary';
+COMMENT ON COLUMN employees.bonus IS 'Bonus to salary';
 
-CREATE TABLE hotelsystems.facilities ( 
+CREATE TABLE facilities ( 
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	description          text  ,
@@ -81,9 +79,9 @@ CREATE TABLE hotelsystems.facilities (
 	CONSTRAINT pk_facilities PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_facilities ON hotelsystems.facilities ( responsible_worker );
+CREATE INDEX idx_facilities ON facilities ( responsible_worker );
 
-CREATE TABLE hotelsystems.guests ( 
+CREATE TABLE guests ( 
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	phone                varchar(50)  NOT NULL,
@@ -92,9 +90,9 @@ CREATE TABLE hotelsystems.guests (
 	CONSTRAINT pk_guests PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_guests ON hotelsystems.guests ( booker );
+CREATE INDEX idx_guests ON guests ( booker );
 
-CREATE TABLE hotelsystems.notifications ( 
+CREATE TABLE notifications ( 
 	id                   serial  NOT NULL,
 	id_type              integer  ,
 	id_department        integer  ,
@@ -104,11 +102,11 @@ CREATE TABLE hotelsystems.notifications (
 	CONSTRAINT pk_notifications PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_notifications ON hotelsystems.notifications ( id_department );
+CREATE INDEX idx_notifications ON notifications ( id_department );
 
-CREATE INDEX idx_notifications_0 ON hotelsystems.notifications ( id_type );
+CREATE INDEX idx_notifications_0 ON notifications ( id_type );
 
-CREATE TABLE hotelsystems.orders ( 
+CREATE TABLE orders ( 
 	id                   serial  NOT NULL,
 	id_guest             integer  NOT NULL,
 	received_date        date  ,
@@ -117,13 +115,13 @@ CREATE TABLE hotelsystems.orders (
 	CONSTRAINT pk_orders PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_orders ON hotelsystems.orders ( id_order_categories );
+CREATE INDEX idx_orders ON orders ( id_order_categories );
 
-CREATE INDEX idx_orders_0 ON hotelsystems.orders ( id_guest );
+CREATE INDEX idx_orders_0 ON orders ( id_guest );
 
-CREATE INDEX idx_orders_1 ON hotelsystems.orders ( id_notification );
+CREATE INDEX idx_orders_1 ON orders ( id_notification );
 
-CREATE TABLE hotelsystems.payments ( 
+CREATE TABLE payments ( 
 	id                   serial  NOT NULL,
 	id_order             integer  NOT NULL,
 	amount               numeric(8,2)  NOT NULL,
@@ -132,18 +130,18 @@ CREATE TABLE hotelsystems.payments (
 	CONSTRAINT pk_payments PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_payments ON hotelsystems.payments ( id_order );
+CREATE INDEX idx_payments ON payments ( id_order );
 
-CREATE TABLE hotelsystems.photos ( 
+CREATE TABLE photos ( 
 	id                   serial  NOT NULL,
 	id_facility          integer  NOT NULL,
 	filepath             varchar(200)  NOT NULL,
 	CONSTRAINT pk_galery PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_galery ON hotelsystems.photos ( id_facility );
+CREATE INDEX idx_galery ON photos ( id_facility );
 
-CREATE TABLE hotelsystems.reservations ( 
+CREATE TABLE reservations ( 
 	id                   serial  NOT NULL,
 	id_room              integer  NOT NULL,
 	id_guest             integer  NOT NULL,
@@ -153,73 +151,73 @@ CREATE TABLE hotelsystems.reservations (
 	CONSTRAINT pk_reservations PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_reservation ON hotelsystems.reservations ( id_room );
+CREATE INDEX idx_reservation ON reservations ( id_room );
 
-CREATE INDEX idx_reservation_0 ON hotelsystems.reservations ( id_guest );
+CREATE INDEX idx_reservation_0 ON reservations ( id_guest );
 
-CREATE INDEX idx_reservations ON hotelsystems.reservations ( id_notification );
+CREATE INDEX idx_reservations ON reservations ( id_notification );
 
-ALTER TABLE hotelsystems.cooperating_companies ADD CONSTRAINT fk_cooperating_companies_emplyee FOREIGN KEY ( responsible_worker ) REFERENCES hotelsystems.employees( id );
+ALTER TABLE cooperating_companies ADD CONSTRAINT fk_cooperating_companies_emplyee FOREIGN KEY ( responsible_worker ) REFERENCES employees( id );
 
-COMMENT ON CONSTRAINT fk_cooperating_companies_emplyee ON hotelsystems.cooperating_companies IS '';
+COMMENT ON CONSTRAINT fk_cooperating_companies_emplyee ON cooperating_companies IS '';
 
-ALTER TABLE hotelsystems.departments ADD CONSTRAINT fk_sections_leader FOREIGN KEY ( leader ) REFERENCES hotelsystems.employees( id );
+ALTER TABLE departments ADD CONSTRAINT fk_sections_leader FOREIGN KEY ( leader ) REFERENCES employees( id );
 
-COMMENT ON CONSTRAINT fk_sections_leader ON hotelsystems.departments IS '';
+COMMENT ON CONSTRAINT fk_sections_leader ON departments IS '';
 
-ALTER TABLE hotelsystems.employees ADD CONSTRAINT fk_employees_sections FOREIGN KEY ( id_department ) REFERENCES hotelsystems.departments( id );
+ALTER TABLE employees ADD CONSTRAINT fk_employees_sections FOREIGN KEY ( id_department ) REFERENCES departments( id );
 
-COMMENT ON CONSTRAINT fk_employees_sections ON hotelsystems.employees IS '';
+COMMENT ON CONSTRAINT fk_employees_sections ON employees IS '';
 
-ALTER TABLE hotelsystems.facilities ADD CONSTRAINT fk_facilities_employee FOREIGN KEY ( responsible_worker ) REFERENCES hotelsystems.employees( id );
+ALTER TABLE facilities ADD CONSTRAINT fk_facilities_employee FOREIGN KEY ( responsible_worker ) REFERENCES employees( id );
 
-COMMENT ON CONSTRAINT fk_facilities_employee ON hotelsystems.facilities IS '';
+COMMENT ON CONSTRAINT fk_facilities_employee ON facilities IS '';
 
-ALTER TABLE hotelsystems.guests ADD CONSTRAINT fk_leaders FOREIGN KEY ( booker ) REFERENCES hotelsystems.guests( id );
+ALTER TABLE guests ADD CONSTRAINT fk_leaders FOREIGN KEY ( booker ) REFERENCES guests( id );
 
-COMMENT ON CONSTRAINT fk_leaders ON hotelsystems.guests IS '';
+COMMENT ON CONSTRAINT fk_leaders ON guests IS '';
 
-ALTER TABLE hotelsystems.notifications ADD CONSTRAINT fk_notifications_section FOREIGN KEY ( id_department ) REFERENCES hotelsystems.departments( id );
+ALTER TABLE notifications ADD CONSTRAINT fk_notifications_section FOREIGN KEY ( id_department ) REFERENCES departments( id );
 
-COMMENT ON CONSTRAINT fk_notifications_section ON hotelsystems.notifications IS '';
+COMMENT ON CONSTRAINT fk_notifications_section ON notifications IS '';
 
-ALTER TABLE hotelsystems.notifications ADD CONSTRAINT fk_notifications_type FOREIGN KEY ( id_type ) REFERENCES hotelsystems.notification_types( id );
+ALTER TABLE notifications ADD CONSTRAINT fk_notifications_type FOREIGN KEY ( id_type ) REFERENCES notification_types( id );
 
-COMMENT ON CONSTRAINT fk_notifications_type ON hotelsystems.notifications IS '';
+COMMENT ON CONSTRAINT fk_notifications_type ON notifications IS '';
 
-ALTER TABLE hotelsystems.orders ADD CONSTRAINT fk_orders_categories FOREIGN KEY ( id_order_categories ) REFERENCES hotelsystems.order_categories( id );
+ALTER TABLE orders ADD CONSTRAINT fk_orders_categories FOREIGN KEY ( id_order_categories ) REFERENCES order_categories( id );
 
-COMMENT ON CONSTRAINT fk_orders_categories ON hotelsystems.orders IS '';
+COMMENT ON CONSTRAINT fk_orders_categories ON orders IS '';
 
-ALTER TABLE hotelsystems.orders ADD CONSTRAINT fk_orders_guests FOREIGN KEY ( id_guest ) REFERENCES hotelsystems.guests( id );
+ALTER TABLE orders ADD CONSTRAINT fk_orders_guests FOREIGN KEY ( id_guest ) REFERENCES guests( id );
 
-COMMENT ON CONSTRAINT fk_orders_guests ON hotelsystems.orders IS '';
+COMMENT ON CONSTRAINT fk_orders_guests ON orders IS '';
 
-ALTER TABLE hotelsystems.orders ADD CONSTRAINT fk_orders_not FOREIGN KEY ( id_notification ) REFERENCES hotelsystems.notifications( id );
+ALTER TABLE orders ADD CONSTRAINT fk_orders_not FOREIGN KEY ( id_notification ) REFERENCES notifications( id );
 
-COMMENT ON CONSTRAINT fk_orders_not ON hotelsystems.orders IS '';
+COMMENT ON CONSTRAINT fk_orders_not ON orders IS '';
 
-ALTER TABLE hotelsystems.payments ADD CONSTRAINT fk_payments_orders FOREIGN KEY ( id_order ) REFERENCES hotelsystems.orders( id );
+ALTER TABLE payments ADD CONSTRAINT fk_payments_orders FOREIGN KEY ( id_order ) REFERENCES orders( id );
 
-COMMENT ON CONSTRAINT fk_payments_orders ON hotelsystems.payments IS '';
+COMMENT ON CONSTRAINT fk_payments_orders ON payments IS '';
 
-ALTER TABLE hotelsystems.photos ADD CONSTRAINT fk_galery_fac FOREIGN KEY ( id_facility ) REFERENCES hotelsystems.facilities( id );
+ALTER TABLE photos ADD CONSTRAINT fk_galery_fac FOREIGN KEY ( id_facility ) REFERENCES facilities( id );
 
-COMMENT ON CONSTRAINT fk_galery_fac ON hotelsystems.photos IS '';
+COMMENT ON CONSTRAINT fk_galery_fac ON photos IS '';
 
-ALTER TABLE hotelsystems.reservations ADD CONSTRAINT fk_reservation_room FOREIGN KEY ( id_room ) REFERENCES hotelsystems.rooms( id );
+ALTER TABLE reservations ADD CONSTRAINT fk_reservation_room FOREIGN KEY ( id_room ) REFERENCES rooms( id );
 
-COMMENT ON CONSTRAINT fk_reservation_room ON hotelsystems.reservations IS '';
+COMMENT ON CONSTRAINT fk_reservation_room ON reservations IS '';
 
-ALTER TABLE hotelsystems.reservations ADD CONSTRAINT fk_reservation_guest FOREIGN KEY ( id_guest ) REFERENCES hotelsystems.guests( id );
+ALTER TABLE reservations ADD CONSTRAINT fk_reservation_guest FOREIGN KEY ( id_guest ) REFERENCES guests( id );
 
-COMMENT ON CONSTRAINT fk_reservation_guest ON hotelsystems.reservations IS '';
+COMMENT ON CONSTRAINT fk_reservation_guest ON reservations IS '';
 
-ALTER TABLE hotelsystems.reservations ADD CONSTRAINT fk_reservations_not FOREIGN KEY ( id_notification ) REFERENCES hotelsystems.notifications( id );
+ALTER TABLE reservations ADD CONSTRAINT fk_reservations_not FOREIGN KEY ( id_notification ) REFERENCES notifications( id );
 
-COMMENT ON CONSTRAINT fk_reservations_not ON hotelsystems.reservations IS '';
+COMMENT ON CONSTRAINT fk_reservations_not ON reservations IS '';
 
-ALTER TABLE hotelsystems.rooms ADD CONSTRAINT fk_rooms FOREIGN KEY ( id_class ) REFERENCES hotelsystems.classes( id );
+ALTER TABLE rooms ADD CONSTRAINT fk_rooms FOREIGN KEY ( id_class ) REFERENCES classes( id );
 
-COMMENT ON CONSTRAINT fk_rooms ON hotelsystems.rooms IS '';
+COMMENT ON CONSTRAINT fk_rooms ON rooms IS '';
 
