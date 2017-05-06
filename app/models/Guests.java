@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+
 public class Guests {
     @Constraints.Required
     public Integer id;

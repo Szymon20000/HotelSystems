@@ -1,5 +1,7 @@
 package models;
+
 import play.data.validation.Constraints;
+
 public class CooperatingCompanies {
     @Constraints.Required
     public Integer id;
@@ -7,7 +9,7 @@ public class CooperatingCompanies {
     @Constraints.MaxLength(300)
     public String name;
     @Constraints.Required
-    //@Constraints.MaxLength(50)
+    @Constraints.MaxLength(50)
     public String phone;
     @Constraints.MaxLength(50)
     public String mail;
