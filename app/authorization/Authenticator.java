@@ -15,19 +15,19 @@ public class Authenticator {
             String sessionId = session().get("sessionId");
             Session session = new Session();
 
-            if(session.find("sessionId", session.sessionId)) {
+            if(session.load("sessionId", session.sessionId)) {
                 User user = new User();
-                user.get(session.userId);
+                user.loadById(session.userId);
                 return user;
             }
         }
         return null;
     }
 
-    public static void logIn(User user) {
+    public static void logIn(User user, String pass) {
         User dbUser = new User();
         try {
-            if(dbUser.find("email", user.getEmail()) && checkPass(user.getPassHash(), dbUser.getPassHash())) {
+            if(dbUser.load("email", user.getEmail()) && checkPass(pass, dbUser.getPassHash())) {
                 makeNewSession(user);
             } else {
                 throw new NoSuchUserException();
@@ -42,7 +42,7 @@ public class Authenticator {
             String sessionId = session().get("sessionId");
             Session session = new Session();
 
-            if(session.find("sessionId", session.sessionId)) {
+            if(session.load("sessionId", session.sessionId)) {
                 session.delete();
             }
             session().remove("sessionId");
@@ -50,7 +50,7 @@ public class Authenticator {
     }
 
     public static void signUp(User user) throws NoSuchFieldException, IllegalAccessException {
-        if(new User().find("email", user.email)) {
+        if(new User().load("email", user.email)) {
             throw new ThereIsSuchUserNameException();
         }
         user.save();
@@ -63,7 +63,6 @@ public class Authenticator {
     public static boolean checkPass(String pass, String passHash) {
         return BCrypt.checkpw(pass, passHash);
     }
-
 
     public static void makeNewSession(User user) throws NoSuchFieldException, IllegalAccessException {
         final int LEN_OF_SESSION_ID = 20;

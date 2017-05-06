@@ -1,13 +1,17 @@
 package models;
 
+import javafx.print.Collation;
+import play.api.Play;
 import play.db.Database;
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public abstract class Model {
 
-    protected Database db;
+    protected static Database db = Play.current().injector().instanceOf(Database.class);
 
     public final void save() throws NoSuchFieldException, IllegalAccessException {
         if(db == null) {
@@ -44,7 +48,7 @@ public abstract class Model {
         }
     }
 
-    public final void get(int id) throws NoSuchFieldException, IllegalAccessException {
+    public final void loadById(int id) throws NoSuchFieldException, IllegalAccessException {
         if(db == null) {
             throw new NullDataBaseException();
         }
@@ -154,7 +158,7 @@ public abstract class Model {
         return res;
     }
 
-    public final boolean find(String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
+    public final boolean load(String fieldName, Object val) throws NoSuchFieldException, IllegalAccessException {
         if(db == null) {
             throw new NullDataBaseException();
         }
@@ -191,6 +195,50 @@ public abstract class Model {
         return found;
     }
 
+    public static <T extends Model> T getById(int id, Class<T> cl) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+        T res = cl.newInstance();
+        res.loadById(id);
+        return res;
+    }
+
+    public static <T extends Model> T find(String fieldName, Object val, Class<T> cl) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+        T res = cl.newInstance();
+        res.load(fieldName, val);
+        return res;
+    }
+
+    public static <T extends Model> List<T> findAll(String fieldName, Object val, Class<T> cl) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+        if(db == null) {
+            throw new NullDataBaseException();
+        }
+
+        List<T> res = new ArrayList<T>();
+
+        boolean found = false;
+
+        Connection connection = db.getConnection();
+        String sql;
+        sql = "SELECT * FROM " + cl.getSimpleName() + " WHERE "+ makeSql(fieldName) + " = ?";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setObject(1, val);
+            ResultSet result = statement.executeQuery();
+
+            while(!result.next()) {
+                res.add(getById(result.getInt("id"), cl));
+            }
+
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     final String prepareBrackets(String s) {
         Field[] fields = this.getClass().getDeclaredFields();
 
@@ -216,10 +264,6 @@ public abstract class Model {
             sb.append((Character.toLowerCase(s.charAt(i))));
         }
         return sb.toString();
-    }
-
-    public final void setDb(Database db) {
-        this.db = db;
     }
 
     String getId() throws NoSuchFieldException, IllegalAccessException {
