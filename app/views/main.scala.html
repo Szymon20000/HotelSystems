@@ -5,6 +5,8 @@
  * object to insert into the body of the page.
  *@
 @(title: String)(content: Html)
+@import authorization.Authenticator
+@import play.libs.Json
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,16 +31,7 @@
                         <li class="dropdown">
                             <a href="#">Notifications <span class="badge">42</span></a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
+                        @dropdown(Authenticator.getUser())
                     </ul>
                 </div>
             </div>
@@ -46,6 +39,9 @@
 
         <div class="container">
             <div class="jumbotron">
+                @for(v <- Json.parse(flash().get("_messages")).elements()){
+                    <li>@v.asText()</li>
+                }
                 @content
             </div>
         </div>
