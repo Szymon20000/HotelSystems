@@ -46,11 +46,14 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
+        return ok(views.html.index.render("Main page"));
+    }
+
+    public Result messages() {
         SessionMessages.addError("Error message");
         SessionMessages.addWarning("Warning message");
         SessionMessages.addWarning("Warning message");
         SessionMessages.addSuccess("Success message");
-        return ok(views.html.index.render("Main page"));
+        return ok(views.html.index.render("Messages page"));
     }
-
 }
