@@ -241,6 +241,37 @@ public abstract class Model {
         return res;
     }
 
+    public static <T extends Model> List<T> findAll(Class<T> cl) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+        if(db == null) {
+            throw new NullDataBaseException();
+        }
+
+        List<T> res = new ArrayList<T>();
+
+        boolean found = false;
+
+        Connection connection = db.getConnection();
+        String sql;
+        sql = "SELECT * FROM \"" + cl.getSimpleName() + "\"";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            while(!result.next()) {
+                res.add(getById(result.getInt("id"), cl));
+            }
+
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     final String prepareBrackets(String s) {
         Field[] fields = this.getClass().getDeclaredFields();
 
