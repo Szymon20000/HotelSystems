@@ -1,52 +1,54 @@
 @*
- * This template is called from the `index` template. This template
- * handles the rendering of the page header and body tags. It takes
- * two arguments, a `String` for the title of the page and an `Html`
- * object to insert into the body of the page.
- *@
+* This template is called from the `index` template. This template
+* handles the rendering of the page header and body tags. It takes
+* two arguments, a `String` for the title of the page and an `Html`
+* object to insert into the body of the page.
+*@
 @(title: String)(content: Html)
-@import authorization.Authenticator
-@import play.libs.Json
+    @import authorization.Authenticator
+    @import play.libs.Json
 
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        @* Here's where we render the page title `String`. *@
+    <html lang="en">
+        <head>
+            @* Here's where we render the page title `String`. *@
         <title>@title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
 
-    </head>
-    <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">HotelSystems</a>
-                </div>
+        </head>
+        <body>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">HotelSystems</a>
+                    </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#">Notifications <span class="badge">42</span></a>
-                        </li>
-                        @dropdown(Authenticator.getUser())
-                    </ul>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#">Notifications <span class="badge">42</span></a>
+                            </li>
+                            @dropdown(Authenticator.getUser())
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="jumbotron">
+                    @if(flash().get("_messages") != null) {
+                        @for(v <- Json.parse(flash().get("_messages")).elements()) {
+                            <li>@v.asText()</li>
+                        }
+                    }
+                    @content
                 </div>
             </div>
-        </nav>
 
-        <div class="container">
-            <div class="jumbotron">
-                @for(v <- Json.parse(flash().get("_messages")).elements()){
-                    <li>@v.asText()</li>
-                }
-                @content
-            </div>
-        </div>
-
-        <script src="@routes.Assets.versioned("javascripts/jquery-3.2.1.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-    </body>
-</html>
+            <script src="@routes.Assets.versioned("javascripts/jquery-3.2.1.min.js")" type="text/javascript"></script>
+            <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        </body>
+    </html>
