@@ -1,7 +1,7 @@
 @(user: authorization.models.User)
 @if(user == null) {
     <li class="dropdown">
-        <a href="@auth.routes.LoginController.get()">Login</a>
+        <a href="@auth.routes.LoginController.get">Login</a>
     </li>
 } else {
     <li class="dropdown">
@@ -14,7 +14,7 @@
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="@auth.routes.LogoutController.get()">Log Out</a></li>
+                <li><a href="@auth.routes.LogoutController.get">Log Out</a></li>
             </ul>
         }
     </li>

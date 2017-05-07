@@ -5,7 +5,6 @@
 * object to insert into the body of the page.
 *@
 @(title: String)(content: Html)
-    @import authorization.Authenticator
 
 <!DOCTYPE html>
     <html lang="en">
@@ -19,22 +18,7 @@
 
         </head>
         <body>
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">HotelSystems</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#">Notifications <span class="badge">42</span></a>
-                            </li>
-                            @dropdown(Authenticator.getUser())
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            @navbar()
 
             <div class="container">
                 <div class="jumbotron">
