@@ -23,7 +23,7 @@ public class SearchController {
         this.formFactory = formFactory;
     }
 
-    public Result form() {
+    public Result index() {
         Form<FormData> form = formFactory.form(FormData.class);
         Http.Context context = Http.Context.current();
         Map<String, String> a = new TreeMap<>();

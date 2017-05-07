@@ -1,0 +1,52 @@
+@import play.libs.Json
+
+@if(flash().get("_messages_error") != null) {
+    <div class="alert alert-danger" role="alert">
+    @if(Json.parse(flash().get("_messages_error")).size() == 1) {
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        @Json.parse(flash().get("_messages_error")).elements().next().asText()
+    } else {
+        <b>Errors:</b>
+        <br>
+        <ul>
+        @for(v <- Json.parse(flash().get("_messages_error")).elements()) {
+            <li>@v.asText()</li>
+        }
+        </ul>
+    }
+    </div>
+}
+
+@if(flash().get("_messages_warning") != null) {
+    <div class="alert alert-warning" role="alert">
+    @if(Json.parse(flash().get("_messages_warning")).size() == 1) {
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        @Json.parse(flash().get("_messages_warning")).elements().next().asText()
+    } else {
+        <b>Warnings:</b>
+        <br>
+        <ul>
+        @for(v <- Json.parse(flash().get("_messages_warning")).elements()) {
+            <li>@v.asText()</li>
+        }
+        </ul>
+    }
+    </div>
+}
+
+@if(flash().get("_messages_success") != null) {
+    <div class="alert alert-success" role="alert">
+    @if(Json.parse(flash().get("_messages_success")).size() == 1) {
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        @Json.parse(flash().get("_messages_success")).elements().next().asText()
+    } else {
+        <b>Cool!</b>
+        <br>
+        <ul>
+        @for(v <- Json.parse(flash().get("_messages_success")).elements()) {
+            <li>@v.asText()</li>
+        }
+        </ul>
+    }
+    </div>
+}
