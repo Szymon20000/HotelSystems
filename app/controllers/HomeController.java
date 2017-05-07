@@ -1,13 +1,12 @@
 package controllers;
 
+import helpers.SessionMessages;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.*;
 
 import javax.inject.Inject;
-
-import static helpers.SessionMessages.addMessage;
 
 
 /**
@@ -47,8 +46,10 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
-        addMessage("First message");
-        addMessage("Second message");
+        SessionMessages.addError("Error message");
+        SessionMessages.addWarning("Warning message");
+        SessionMessages.addWarning("Warning message");
+        SessionMessages.addSuccess("Success message");
         return ok(views.html.index.render("Main page"));
     }
 

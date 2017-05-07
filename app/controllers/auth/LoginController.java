@@ -3,7 +3,7 @@ package controllers.auth;
 import authorization.Authenticator;
 import authorization.NoSuchUserException;
 import authorization.models.UserForm;
-import controllers.*;
+import helpers.SessionMessages;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
@@ -12,11 +12,9 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
-import static play.mvc.Controller.flash;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
 
-import static helpers.SessionMessages.addMessage;
 public class LoginController extends AuthController {
     @Inject
     public LoginController(Database db, FormFactory formFactory) {
@@ -48,7 +46,7 @@ public class LoginController extends AuthController {
             return ok(views.html.auth_views.login.render(form, context.messages()));
         }
 
-        addMessage("You have successfully logged in!");
+        SessionMessages.addSuccess("You have successfully logged in!");
         return redirect(controllers.routes.HomeController.index());
     }
 }

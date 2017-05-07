@@ -6,7 +6,6 @@
 *@
 @(title: String)(content: Html)
     @import authorization.Authenticator
-    @import play.libs.Json
 
 <!DOCTYPE html>
     <html lang="en">
@@ -39,11 +38,7 @@
 
             <div class="container">
                 <div class="jumbotron">
-                    @if(flash().get("_messages") != null) {
-                        @for(v <- Json.parse(flash().get("_messages")).elements()) {
-                            <li>@v.asText()</li>
-                        }
-                    }
+                    @sessionmessages()
                     @content
                 </div>
             </div>
