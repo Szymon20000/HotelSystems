@@ -1,10 +1,5 @@
 package models;
 
-import play.mvc.WebSocket;
-
-/**
- * Created by szymon on 5/8/17.
- */
 public class Message extends Model{
 
     public Integer id;
@@ -27,7 +22,7 @@ public class Message extends Model{
     }
 
     public String getType() {
-        String breakdown = "Breakedown";
+        String breakdown = "Breakdown";
         String remark = "Remark";
         String normalMessage = "Normal message";
         String response = "Response";

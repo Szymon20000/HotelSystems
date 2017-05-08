@@ -1,15 +1,11 @@
 package controllers.guest_panel;
 
 import authorization.Authenticator;
-import authorization.UsernameAlreadyExistsException;
-import authorization.models.UserForm;
 import helpers.SessionMessages;
-import models.DatabaseException;
 import models.Message;
 import models.Model;
 import play.data.Form;
 import play.data.FormFactory;
-import play.data.validation.ValidationError;
 import play.db.Database;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -20,9 +16,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by szymon on 5/8/17.
- */
 public class ContactController  extends Controller {
     private final play.data.FormFactory formFactory;
 
