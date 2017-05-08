@@ -214,33 +214,38 @@ public abstract class Model {
         return null;
     }
 
-    public static <T extends Model> List<T> findAll(String fieldName, Object val, Class<T> cl) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    public static <T extends Model> List<T> findAll(String fieldName, Object val, Class<T> cl)  {
         if(db == null) {
             throw new NullDataBaseException();
         }
 
         List<T> res = new ArrayList<T>();
 
-        boolean found = false;
-
-        Connection connection = db.getConnection();
-        String sql;
-        sql = "SELECT * FROM \"" + cl.getSimpleName() + "\" WHERE "+ makeSql(fieldName) + " = ?";
-        PreparedStatement statement = null;
-
         try {
-            statement = connection.prepareStatement(sql);
-            statement.setObject(1, val);
-            ResultSet result = statement.executeQuery();
 
-            while(!result.next()) {
-                res.add(getById(result.getInt("id"), cl));
+            boolean found = false;
+
+            Connection connection = db.getConnection();
+            String sql;
+            sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
+            PreparedStatement statement = null;
+
+            try {
+                statement = connection.prepareStatement(sql);
+                statement.setObject(1, val);
+                ResultSet result = statement.executeQuery();
+
+                while (result.next()) {
+                    res.add(getById(result.getInt("id"), cl));
+                }
+
+                result.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            result.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
+        }  catch (IllegalAccessException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         return res;
@@ -257,14 +262,14 @@ public abstract class Model {
 
         Connection connection = db.getConnection();
         String sql;
-        sql = "SELECT * FROM \"" + cl.getSimpleName() + "\"";
+        sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\"";
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
 
-            while(!result.next()) {
+            while(result.next()) {
                 res.add(getById(result.getInt("id"), cl));
             }
 
@@ -312,7 +317,7 @@ public abstract class Model {
     }
 
     String getClassName() {
-        return this.getClass().getSimpleName().toLowerCase();
+        return makeSql(this.getClass().getSimpleName());
     }
 }
 

@@ -1,4 +1,4 @@
-@(form: play.data.Form[models.Message])(implicit messages: play.i18n.Messages)
+@(form: play.data.Form[models.Message], messagesHistory : List[controllers.guest_panel.ContactController.MessageWrapper])(implicit messages: play.i18n.Messages)
 
 @import views.html.helper.CSRF;
 @import b3.vertical.fieldConstructor;
@@ -23,5 +23,16 @@
     }
     @b3.textarea( form("content"), '_label -> "Message", 'placeholder -> "Message" )
     @b3.submit('class -> "btn btn-default"){ Submit }
+  }
+
+  @for(mes <- messagesHistory) {
+    @if(mes.isMine) {
+      <div class="panel panel-info">
+    } else {
+      <div class="panel panel-primary">
+    }
+    <h3 class="panel-title">@mes.message.title</h3>
+     <p>@mes.message.content</p>
+    </div>
   }
 }
