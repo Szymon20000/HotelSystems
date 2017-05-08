@@ -1,12 +1,13 @@
 package controllers;
 
-import models.Ankieta;
+import helpers.SessionMessages;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.*;
 
 import javax.inject.Inject;
+
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -31,7 +32,7 @@ public class HomeController extends Controller {
 
     public Result upload() {
         Form<FormData> formData = formFactory.form(FormData.class).bindFromRequest();
-        if(formData.hasErrors()) {
+        if (formData.hasErrors()) {
             return badRequest("nope");
         }
         FormData data = formData.get();
@@ -45,11 +46,14 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws NoSuchFieldException, IllegalAccessException {
-        Ankieta ankieta = new Ankieta();
-        ankieta.load("nazwisko", "Kot");
-        ankieta.nazwisko = "Kota";
-        ankieta.save();
-        return ok(views.html.index.render(ankieta.id + " " + ankieta.nazwisko + " " + ankieta.wiek));
+        return ok(views.html.index.render("Main page"));
     }
 
+    public Result messages() {
+        SessionMessages.addError("Error message");
+        SessionMessages.addWarning("Warning message");
+        SessionMessages.addWarning("Warning message");
+        SessionMessages.addSuccess("Success message");
+        return ok(views.html.index.render("Messages page"));
+    }
 }

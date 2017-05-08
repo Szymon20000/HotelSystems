@@ -1,6 +1,7 @@
 package controllers.auth;
 
 import authorization.Authenticator;
+import helpers.SessionMessages;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.Result;
@@ -17,6 +18,7 @@ public class LogoutController extends AuthController {
 
     public Result get() {
         Authenticator.logOut();
-        return ok(views.html.auth_views.logout.render("You have successfully logged out!"));
+        SessionMessages.addSuccess("You have successfully logged out!");
+        return ok(views.html.auth_views.logout.render());
     }
 }

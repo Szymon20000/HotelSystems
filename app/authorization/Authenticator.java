@@ -17,7 +17,7 @@ public class Authenticator {
             String sessionId = session().get("sessionId");
             Session session = new Session();
 
-            if(session.load("sessionId", session.sessionId)) {
+            if(session.load("sessionId", sessionId)) {
                 User user = new User();
                 user.loadById(session.userId);
                 return user;
