@@ -5,13 +5,7 @@
 
 @main("Contact") {
 
-  @if(form.hasGlobalErrors) {
-    <div class="alert alert-danger" role="alert">
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      <span class="sr-only">Error:</span>
-      @form.globalError.message
-    </div>
-  }
+  @formerrors(form)
 
   @b3.form(guest_panel.routes.ContactController.post) {
     @CSRF.formField
