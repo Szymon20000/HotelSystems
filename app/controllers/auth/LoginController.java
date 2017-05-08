@@ -47,6 +47,6 @@ public class LoginController extends AuthController {
         }
 
         SessionMessages.addSuccess("You have successfully logged in!");
-        return redirect(controllers.booking.routes.SearchController.index());
+        return redirect(controllers.booking.routes.SearchController.get());
     }
 }

@@ -10,5 +10,7 @@ $(document).ready(function(){
         $dateInputs.eq(0).data("DateTimePicker").maxDate(e.date);
     });
 
-    $(".bs-slider input").slider({});
+    $(".bs-slider input").each(function() {
+        $(this).slider({value: $(this).val().split(",").map(Number)});
+    });
 });

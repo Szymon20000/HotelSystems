@@ -2,7 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                    controllers.booking.SearchController.index
+GET     /                    controllers.booking.SearchController.get
+POST    /search              controllers.booking.SearchController.post
+
 GET     /messages            controllers.HomeController.messages
 GET     /form                controllers.HomeController.form
 POST    /upload              controllers.HomeController.upload

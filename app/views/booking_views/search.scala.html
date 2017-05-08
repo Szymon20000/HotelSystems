@@ -1,31 +1,30 @@
-@(form: play.data.Form[controllers.FormData], classes: Map[String, String])(implicit messages: play.i18n.Messages)
+@(form: play.data.Form[forms.SearchForm], classes: Map[String, String])(implicit messages: play.i18n.Messages)
 
 @import views.html.helper.CSRF;
 @import b3.vertical.fieldConstructor;
 
 @main("Search") {
 
-  @b3.form(routes.HomeController.upload) {
+  @b3.form(booking.routes.SearchController.post) {
     @CSRF.formField
-    @b3.number( form("name"), '_label -> "Number of guests", 'placeholder -> "1", 'min -> "1", 'max -> "6" )
+    @b3.number( form("guests"), '_label -> "Number of guests", 'min -> "1", 'max -> "6", 'required -> "required" )
     @b3.datepicker(
-      form("dateStart"))(
-      form("dateEnd"))(
+      form("startDate"))(
+      form("endDate"))(
       '_label -> "From/to"
     )
-    @b3.select( form("foo"), '_label -> "Room's class" ) { implicit values =>
+    @b3.select( form("roomClass"), '_label -> "Room's class" ) { implicit values =>
       @for((key, value) <- classes) {
         @b3.selectOption(key, value)
       }
     }
-    @b3.slider(form("name"),
+    @b3.slider(form("priceRange"),
       "0 PLN",
       "1000 PLN",
       '_label -> "Price range",
       Symbol("data-slider-min") -> "0",
       Symbol("data-slider-max") ->"1000",
-      Symbol("data-slider-step") -> "50",
-      Symbol("data-slider-value") -> "[300,700]"
+      Symbol("data-slider-step") -> "50"
     )
     @b3.submit('class -> "btn btn-default"){ Search }
   }
