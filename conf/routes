@@ -16,8 +16,8 @@ POST    /signup              controllers.auth.SignupController.post
 
 GET     /logout              controllers.auth.LogoutController.get
 
-GET     /guest_contact       controllers.guest_panel.ContactController.get
-POST     /guest_contact       controllers.guest_panel.ContactController.post
+GET     /guest-contact       controllers.guest_panel.ContactController.get
+POST     /guest-contact       controllers.guest_panel.ContactController.post
 
 
 # Map static resources from the /public folder to the /assets URL path

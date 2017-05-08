@@ -74,7 +74,6 @@ public class ContactController  extends Controller {
         }
 
         static List<MessageWrapper> getHistory(Integer id) {
-            System.out.println(id + " tutaj");
             List<Message> mineMessages = Model.<Message>findAll("sender", id, Message.class);
             List<Message> addressedToMe = Model.<Message>findAll("addressee", id, Message.class);
 
