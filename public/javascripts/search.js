@@ -10,7 +10,13 @@ $(document).ready(function(){
         $dateInputs.eq(0).data("DateTimePicker").maxDate(e.date);
     });
 
+    var bs_slider_options = {};
     $(".bs-slider input").each(function() {
-        $(this).slider({value: $(this).val().split(",").map(Number)});
+        if($(this).val()) {
+            bs_slider_options = $.extend(bs_slider_options, {
+                value: $(this).val().split(",").map(Number)
+            });
+        }
+        $(this).slider(bs_slider_options);
     });
 });
