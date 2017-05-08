@@ -13,38 +13,43 @@ public abstract class Model {
 
     protected static Database db = Play.current().injector().instanceOf(Database.class);
 
-    public void save() throws NoSuchFieldException, IllegalAccessException {
+    public void save()  {
         if(db == null) {
             throw new NullDataBaseException();
         }
 
-        boolean insertNew = true;
-
-        Connection connection = db.getConnection();
-        String sql;
-        sql = "SELECT id FROM \"" + getClassName() + "\" WHERE id = " + getId();
-
-        Statement statement = null;
-
         try {
-            statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery(sql);
-            if(result.next()) {
-                insertNew = false;
+            boolean insertNew = true;
+
+            Connection connection = db.getConnection();
+            String sql;
+            sql = "SELECT id FROM \"" + getClassName() + "\" WHERE id = " + getId();
+
+            Statement statement = null;
+
+            try {
+                statement = connection.createStatement();
+
+                ResultSet result = statement.executeQuery(sql);
+                if(result.next()) {
+                    insertNew = false;
+                }
+
+                result.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
-            result.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
+            if (insertNew) {
+                insert(true);
+            } else {
+                update();
+            }
+        }  catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
-        }
-
-        if(insertNew) {
-            insert(true);
-        } else {
-            update();
         }
     }
 
@@ -299,7 +304,7 @@ public abstract class Model {
         return sb.toString();
     }
 
-    String getId() throws NoSuchFieldException, IllegalAccessException {
+    private String getId() throws NoSuchFieldException, IllegalAccessException {
         Object id = this.getClass().getDeclaredField("id").get(this);
         if(id == null)
             return null;

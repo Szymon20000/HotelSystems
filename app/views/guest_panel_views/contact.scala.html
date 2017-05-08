@@ -1,0 +1,27 @@
+@(form: play.data.Form[models.Message])(implicit messages: play.i18n.Messages)
+
+@import views.html.helper.CSRF;
+@import b3.vertical.fieldConstructor;
+
+@main("Contact") {
+
+  @if(form.hasGlobalErrors) {
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      @form.globalError.message
+    </div>
+  }
+
+  @b3.form(guest_panel.routes.ContactController.post) {
+    @CSRF.formField
+    @b3.text( form("title"), '_label -> "Title", 'placeholder -> "title" )
+    @b3.select( form("messageType"), '_label -> "Message type" ) { implicit values =>
+      @b3.selectOption(1, "Breakedown")
+      @b3.selectOption(2, "Remark")
+      @b3.selectOption(3, "Message")
+    }
+    @b3.textarea( form("content"), '_label -> "Message", 'placeholder -> "Message" )
+    @b3.submit('class -> "btn btn-default"){ Submit }
+  }
+}
