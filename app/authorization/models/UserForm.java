@@ -7,7 +7,7 @@ public class UserForm extends User {
     public String pass;
 
     @Override
-    public void save() throws NoSuchFieldException, IllegalAccessException {
+    public void save() {
         throw new UnsupportedOperationException();
     }
 

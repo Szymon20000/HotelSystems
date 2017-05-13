@@ -1,15 +1,17 @@
 @import play.libs.Json
+@import java.lang.String; var messages = ""
 
-@if(flash().get("_messages_error") != null) {
+@if(session().get("_messages_error") != null) {
     <div class="alert alert-danger" role="alert">
-    @if(Json.parse(flash().get("_messages_error")).size() == 1) {
+    @{messages=session.remove("_messages_error")}
+    @if(Json.parse(messages).size() == 1) {
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        @Json.parse(flash().get("_messages_error")).elements().next().asText()
+        @Json.parse(messages).elements().next().asText()
     } else {
         <b>Errors:</b>
         <br>
         <ul>
-        @for(v <- Json.parse(flash().get("_messages_error")).elements()) {
+        @for(v <- Json.parse(messages).elements()) {
             <li>@v.asText()</li>
         }
         </ul>
@@ -17,16 +19,17 @@
     </div>
 }
 
-@if(flash().get("_messages_warning") != null) {
+@if(session().get("_messages_warning") != null) {
     <div class="alert alert-warning" role="alert">
-    @if(Json.parse(flash().get("_messages_warning")).size() == 1) {
+    @{messages=session.remove("_messages_warning")}
+    @if(Json.parse(messages).size() == 1) {
         <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-        @Json.parse(flash().get("_messages_warning")).elements().next().asText()
+        @Json.parse(messages).elements().next().asText()
     } else {
         <b>Warnings:</b>
         <br>
         <ul>
-        @for(v <- Json.parse(flash().get("_messages_warning")).elements()) {
+        @for(v <- Json.parse(messages).elements()) {
             <li>@v.asText()</li>
         }
         </ul>
@@ -34,16 +37,17 @@
     </div>
 }
 
-@if(flash().get("_messages_success") != null) {
+@if(session().get("_messages_success") != null) {
     <div class="alert alert-success" role="alert">
-    @if(Json.parse(flash().get("_messages_success")).size() == 1) {
+    @{messages=session.remove("_messages_success")}
+    @if(Json.parse(messages).size() == 1) {
         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-        @Json.parse(flash().get("_messages_success")).elements().next().asText()
+        @Json.parse(messages).elements().next().asText()
     } else {
         <b>Cool!</b>
         <br>
         <ul>
-        @for(v <- Json.parse(flash().get("_messages_success")).elements()) {
+        @for(v <- Json.parse(messages).elements()) {
             <li>@v.asText()</li>
         }
         </ul>

@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Standard {
+public class Standard extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
