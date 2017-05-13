@@ -1,0 +1,38 @@
+@(form: play.data.Form[models.Message], messagesHistory : List[controllers.guest_panel.ContactController.MessageWrapper])(implicit messages: play.i18n.Messages)
+
+@import views.html.helper.CSRF;
+@import b3.vertical.fieldConstructor;
+
+@main("Contact") {
+
+  @formerrors(form)
+
+  @b3.form(guest_panel.routes.ContactController.post) {
+    @CSRF.formField
+    @b3.text( form("title"), '_label -> "Title", 'placeholder -> "Title" )
+    @b3.select( form("messageType"), '_label -> "Message type" ) { implicit values =>
+      @b3.selectOption(1, "Breakdown")
+      @b3.selectOption(2, "Remark")
+      @b3.selectOption(3, "Message")
+    }
+    @b3.textarea( form("content"), '_label -> "Message", 'placeholder -> "Message" )
+    @b3.submit('class -> "btn btn-default"){ Submit }
+  }
+
+  @for(msg <- messagesHistory) {
+    <div class="panel
+      @if(msg.isMine) {
+        panel-info
+      } else {
+        panel-primary
+      }
+    ">
+        <div class="panel-heading">
+          <div class="panel-title">@msg.message.title</div>
+        </div>
+        <div class="panel-body">
+          @msg.message.content
+        </div>
+      </div>
+  }
+}

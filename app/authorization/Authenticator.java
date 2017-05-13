@@ -12,7 +12,8 @@ import static play.mvc.Controller.session;
 
 public class Authenticator {
 
-    public static User getUser() throws NoSuchFieldException, IllegalAccessException {
+    public static User getUser() {
+        try {
         if(session().containsKey("sessionId")) {
             String sessionId = session().get("sessionId");
             Session session = new Session();
@@ -22,6 +23,9 @@ public class Authenticator {
                 user.loadById(session.userId);
                 return user;
             }
+        }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new NoSuchUserException();
         }
         return null;
     }
