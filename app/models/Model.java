@@ -247,30 +247,35 @@ public abstract class Model {
         return res;
     }
 
-    public static <T extends Model> List<T> findAll(Class<T> cl) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    public static <T extends Model> List<T> findAll(Class<T> cl) {
         if(db == null) {
             throw new NullDataBaseException();
         }
 
         List<T> res = new ArrayList<>();
 
-        Connection connection = db.getConnection();
-        String sql;
-        sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\"";
-        PreparedStatement statement = null;
-
         try {
-            statement = connection.prepareStatement(sql);
-            ResultSet result = statement.executeQuery();
+            Connection connection = db.getConnection();
+            String sql;
+            sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\"";
+            PreparedStatement statement = null;
 
-            while(result.next()) {
-                res.add(getById(result.getInt("id"), cl));
+            try {
+                statement = connection.prepareStatement(sql);
+                ResultSet result = statement.executeQuery();
+
+                while (result.next()) {
+                    res.add(getById(result.getInt("id"), cl));
+                }
+
+                result.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            result.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
+        }
+        catch(IllegalAccessException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         return res;
