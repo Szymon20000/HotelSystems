@@ -8,6 +8,8 @@ GET     /messages            controllers.HomeController.messages
 GET     /form                controllers.HomeController.form
 POST    /upload              controllers.HomeController.upload
 
+GET     /rooms               controllers.ShowRooms.index
+
 GET     /login               controllers.auth.LoginController.get
 POST    /login               controllers.auth.LoginController.post
 

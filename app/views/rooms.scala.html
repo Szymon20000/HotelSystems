@@ -1,0 +1,10 @@
+@(list: List[Rooms])
+
+@main("Welcome to Play") {
+<h3>ROOMS</h3>
+
+@for( room <- list ){
+<b>id: @room.getId</b>
+<b>   floor: @room.getFloor</b><br>
+}
+}
