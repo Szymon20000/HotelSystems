@@ -2,25 +2,21 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                    controllers.booking.SearchController.get
-POST    /search              controllers.booking.SearchController.post
+GET     /                     controllers.booking.SearchController.get
+POST    /search               controllers.booking.SearchController.post
 
-GET     /messages            controllers.HomeController.messages
-GET     /form                controllers.HomeController.form
-POST    /upload              controllers.HomeController.upload
+GET     /rooms                controllers.booking.SearchResultController.index
 
-GET     /rooms               controllers.ShowRooms.index
+GET     /login                controllers.auth.LoginController.get
+POST    /login                controllers.auth.LoginController.post
 
-GET     /login               controllers.auth.LoginController.get
-POST    /login               controllers.auth.LoginController.post
+GET     /signup               controllers.auth.SignupController.get
+POST    /signup               controllers.auth.SignupController.post
 
-GET     /signup              controllers.auth.SignupController.get
-POST    /signup              controllers.auth.SignupController.post
+GET     /logout               controllers.auth.LogoutController.get
 
-GET     /logout              controllers.auth.LogoutController.get
-
-GET     /guest-contact       controllers.guest_panel.ContactController.get
-POST    /guest-contact       controllers.guest_panel.ContactController.post
+GET     /guest-contact        controllers.guest_panel.ContactController.get
+POST    /guest-contact        controllers.guest_panel.ContactController.post
 
 
 # Map static resources from the /public folder to the /assets URL path

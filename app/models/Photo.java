@@ -13,6 +13,12 @@ public class Photo extends Model {
 
     public Photo() {}
 
+    public Photo(Integer id, Integer idFacility, String filepath) {
+        setId(id);
+        setIdFacility(idFacility);
+        setFilepath(filepath);
+    }
+
     public Integer getId() {
         return id;
     }

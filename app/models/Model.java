@@ -5,9 +5,7 @@ import play.db.Database;
 
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public abstract class Model {
 
@@ -223,12 +221,24 @@ public abstract class Model {
         try {
             Connection connection = db.getConnection();
             String sql;
-            sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
+            if(val instanceof List) {
+                sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName)
+                        + " IN(" + String.join(",", Collections.nCopies(((List)val).size(), "?")) + ")";
+            }
+            else {
+                sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
+            }
             PreparedStatement statement = null;
 
             try {
                 statement = connection.prepareStatement(sql);
-                statement.setObject(1, val);
+                if(val instanceof List) {
+                    for (int i = 0; i < ((List)val).size(); ++i)
+                        statement.setObject(i + 1, ((List)val).get(i));
+                }
+                else {
+                    statement.setObject(1, val);
+                }
                 ResultSet result = statement.executeQuery();
 
                 while (result.next()) {
