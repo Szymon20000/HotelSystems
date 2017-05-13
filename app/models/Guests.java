@@ -2,7 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class Guests {
+public class Guests extends Model{
     @Constraints.Required
     public Integer id;
     @Constraints.Required
