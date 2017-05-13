@@ -2,7 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class Photos {
+public class Photo extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -11,7 +11,7 @@ public class Photos {
     @Constraints.MaxLength(200)
     public String filepath;
 
-    public Photos() {}
+    public Photo() {}
 
     public Integer getId() {
         return id;

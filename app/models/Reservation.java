@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.util.Date;
 
-public class Reservations {
+public class Reservation {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -18,7 +18,7 @@ public class Reservations {
     @Constraints.Required
     public Integer idNotification;
 
-    public Reservations() {}
+    public Reservation() {}
 
     public Integer getId() {
         return id;

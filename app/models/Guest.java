@@ -2,7 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class Guests {
+public class Guest {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -15,8 +15,9 @@ public class Guests {
     public String mail;
     @Constraints.Required
     public Integer booker;
+    public Integer userId;
 
-    public Guests() {}
+    public Guest() {}
 
     public Integer getId() {
         return id;
@@ -56,5 +57,13 @@ public class Guests {
 
     public void setBooker(Integer booker) {
         this.booker = booker;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
