@@ -2,11 +2,8 @@ package controllers;
 
 import authorization.Authenticator;
 import authorization.models.User;
-import controllers.guest_panel.ContactController;
 import models.Guests;
-import models.Message;
 import play.data.DynamicForm;
-import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.Controller;
@@ -15,7 +12,6 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PersonalDataController extends Controller {
 
@@ -50,6 +46,6 @@ public class PersonalDataController extends Controller {
             guest.setPhone(requestData.get("phone"+i));
             guestsList.add(guest);
         }
-        return ok(views.html.personaldatasubmitted.render(guestsList, formFactory.form(), context.messages()));
+        return ok(views.html.datasubmitted.render(guestsList, formFactory.form(), context.messages()));
     }
 }

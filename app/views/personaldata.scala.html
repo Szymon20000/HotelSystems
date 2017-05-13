@@ -10,8 +10,8 @@
         @if(user != null) {
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName, 'readonly -> true)
-                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone, 'readonly -> true)
+                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone)
                     @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> user.getMail, 'readonly -> true)
                 </div>
             </div>
@@ -25,8 +25,11 @@
             </div>
         }
 
-        @for(p <- 1 to guests-1) {
+        @for(p <- 1 until guests) {
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Next person</div>
+                </div>
                 <div class="panel-body">
                     @b3.text(form("name" + p), '_label -> "Name")
                     @b3.tel(form("phone" + p), '_label -> "Phone")
