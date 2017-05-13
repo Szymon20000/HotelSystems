@@ -45,7 +45,6 @@ public class ContactController  extends Controller {
         message.addressee = Message.getManagerId();
         message.save();
         SessionMessages.addSuccess("Your message has been sent!");
-        List<MessageWrapper> messageWrapperList =  MessageWrapper.getHistory(Authenticator.getUser().id);
         return redirect(controllers.guest_panel.routes.ContactController.get());
     }
 

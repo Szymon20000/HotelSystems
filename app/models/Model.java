@@ -19,7 +19,6 @@ public abstract class Model {
         }
 
         try {
-
             boolean insertNew = true;
 
             Connection connection = db.getConnection();
@@ -219,12 +218,9 @@ public abstract class Model {
             throw new NullDataBaseException();
         }
 
-        List<T> res = new ArrayList<T>();
+        List<T> res = new ArrayList<>();
 
         try {
-
-            boolean found = false;
-
             Connection connection = db.getConnection();
             String sql;
             sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
@@ -256,9 +252,7 @@ public abstract class Model {
             throw new NullDataBaseException();
         }
 
-        List<T> res = new ArrayList<T>();
-
-        boolean found = false;
+        List<T> res = new ArrayList<>();
 
         Connection connection = db.getConnection();
         String sql;
