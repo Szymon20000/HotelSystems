@@ -2,22 +2,21 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                    controllers.HomeController.index
-GET     /messages            controllers.HomeController.messages
-GET     /form                controllers.HomeController.form
-POST    /upload              controllers.HomeController.upload
+GET     /                     controllers.booking.SearchController.get
+POST    /search               controllers.booking.SearchController.post
 
-GET     /login               controllers.auth.LoginController.get
-POST    /login               controllers.auth.LoginController.post
+GET     /rooms                controllers.booking.SearchResultController.index
 
-GET     /signup              controllers.auth.SignupController.get
-POST    /signup              controllers.auth.SignupController.post
+GET     /login                controllers.auth.LoginController.get
+POST    /login                controllers.auth.LoginController.post
 
-GET     /logout              controllers.auth.LogoutController.get
+GET     /signup               controllers.auth.SignupController.get
+POST    /signup               controllers.auth.SignupController.post
 
-GET     /guest-contact       controllers.guest_panel.ContactController.get
-POST    /guest-contact       controllers.guest_panel.ContactController.post
+GET     /logout               controllers.auth.LogoutController.get
+
+GET     /guest-contact        controllers.guest_panel.ContactController.get
+POST    /guest-contact        controllers.guest_panel.ContactController.post
 
 GET     /personal-data       controllers.PersonalDataController.get
 POST    /personal-data       controllers.PersonalDataController.post

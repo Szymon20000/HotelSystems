@@ -1,14 +1,19 @@
 package authorization.models;
 
 import models.Model;
+import play.data.validation.Constraints;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
 public class Session extends Model {
+    @Constraints.Required
     public Integer id;
+    @Constraints.Required
     public String sessionId;
+    @Constraints.Required
     public Integer userId;
+    @Constraints.Required
     public Long expirationDate;
 
     public Session() {}

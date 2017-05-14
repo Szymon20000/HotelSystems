@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Payments {
+public class Payment {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -15,7 +15,7 @@ public class Payments {
     @Constraints.Required
     public Boolean cash;
 
-    public Payments() {}
+    public Payment() {}
 
     public Integer getId() {
         return id;

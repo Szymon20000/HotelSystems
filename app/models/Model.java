@@ -5,9 +5,7 @@ import play.db.Database;
 
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public abstract class Model {
 
@@ -19,7 +17,6 @@ public abstract class Model {
         }
 
         try {
-
             boolean insertNew = true;
 
             Connection connection = db.getConnection();
@@ -219,20 +216,29 @@ public abstract class Model {
             throw new NullDataBaseException();
         }
 
-        List<T> res = new ArrayList<T>();
+        List<T> res = new ArrayList<>();
 
         try {
-
-            boolean found = false;
-
             Connection connection = db.getConnection();
             String sql;
-            sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
+            if(val instanceof List) {
+                sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName)
+                        + " IN(" + String.join(",", Collections.nCopies(((List)val).size(), "?")) + ")";
+            }
+            else {
+                sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName) + " = ?";
+            }
             PreparedStatement statement = null;
 
             try {
                 statement = connection.prepareStatement(sql);
-                statement.setObject(1, val);
+                if(val instanceof List) {
+                    for (int i = 0; i < ((List)val).size(); ++i)
+                        statement.setObject(i + 1, ((List)val).get(i));
+                }
+                else {
+                    statement.setObject(1, val);
+                }
                 ResultSet result = statement.executeQuery();
 
                 while (result.next()) {
@@ -251,32 +257,35 @@ public abstract class Model {
         return res;
     }
 
-    public static <T extends Model> List<T> findAll(Class<T> cl) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    public static <T extends Model> List<T> findAll(Class<T> cl) {
         if(db == null) {
             throw new NullDataBaseException();
         }
 
-        List<T> res = new ArrayList<T>();
-
-        boolean found = false;
-
-        Connection connection = db.getConnection();
-        String sql;
-        sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\"";
-        PreparedStatement statement = null;
+        List<T> res = new ArrayList<>();
 
         try {
-            statement = connection.prepareStatement(sql);
-            ResultSet result = statement.executeQuery();
+            Connection connection = db.getConnection();
+            String sql;
+            sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\"";
+            PreparedStatement statement = null;
 
-            while(result.next()) {
-                res.add(getById(result.getInt("id"), cl));
+            try {
+                statement = connection.prepareStatement(sql);
+                ResultSet result = statement.executeQuery();
+
+                while (result.next()) {
+                    res.add(getById(result.getInt("id"), cl));
+                }
+
+                result.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            result.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
+        }
+        catch(IllegalAccessException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         return res;

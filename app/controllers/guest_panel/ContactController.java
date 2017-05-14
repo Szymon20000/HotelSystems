@@ -40,18 +40,12 @@ public class ContactController  extends Controller {
         }
 
         Message message = form.get();
-
-        if(form.hasErrors()) {
-            List<MessageWrapper> messageWrapperList =  MessageWrapper.getHistory(Authenticator.getUser().id);
-            return ok(views.html.guest_panel_views.contact.render(form, messageWrapperList, context.messages()));
-        }
         message.date = new Date().getTime();
         message.sender = Authenticator.getUser().id;
         message.addressee = Message.getManagerId();
         message.save();
         SessionMessages.addSuccess("Your message has been sent!");
-        List<MessageWrapper> messageWrapperList =  MessageWrapper.getHistory(Authenticator.getUser().id);
-        return ok(views.html.guest_panel_views.contact.render(form, messageWrapperList, context.messages()));
+        return redirect(controllers.guest_panel.routes.ContactController.get());
     }
 
 
@@ -81,10 +75,6 @@ public class ContactController  extends Controller {
             }
 
             res.sort((x,y) -> y.message.date.compareTo(x.message.date) );
-
-            for(MessageWrapper msn : res) {
-                System.out.println(msn.message.title);
-            }
 
             return res;
         }

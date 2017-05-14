@@ -1,6 +1,6 @@
 package models;
 
-public class Message extends Model{
+public class Message extends Model {
 
     public Integer id;
     public String content;

@@ -1,0 +1,13 @@
+@(field: Field, before: String, after: String, args: (Symbol,Any)*)
+
+@import b3.vertical.fieldConstructor;
+
+<div class="bs-slider">
+  @b3.inputWrapped( "text", field, args:_*) { input =>
+    <div class="input-group">
+      <br> @before&nbsp;&nbsp;
+      @input
+      @after
+    </div>
+  }
+</div>

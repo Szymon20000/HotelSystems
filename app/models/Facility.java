@@ -2,7 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class Facilities {
+public class Facility {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -11,8 +11,10 @@ public class Facilities {
     public String description;
     @Constraints.Required
     public Integer responsibleWorker;
+    public Integer idPhoto;
 
-    public Facilities() {}
+    public Facility() {
+    }
 
     public Integer getId() {
         return id;
@@ -45,4 +47,11 @@ public class Facilities {
     public void setResponsibleWorker(Integer responsibleWorker) {
         this.responsibleWorker = responsibleWorker;
     }
-}
+
+    public Integer getIdPhoto() {
+        return idPhoto;
+    }
+
+    public void setIdPhoto(Integer idPhoto) {
+        this.idPhoto = idPhoto;
+    }}

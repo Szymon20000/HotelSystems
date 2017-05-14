@@ -5,7 +5,7 @@ import play.data.validation.Constraints;
 import javax.validation.Constraint;
 import java.util.Date;
 
-public class Notifications {
+public class Notification {
     @Constraints.Required
     public Integer id;
     public Integer idType;
@@ -15,7 +15,7 @@ public class Notifications {
     @Constraints.Required
     public Boolean done;
 
-    public Notifications() {}
+    public Notification() {}
 
     public Integer getId() {
         return id;

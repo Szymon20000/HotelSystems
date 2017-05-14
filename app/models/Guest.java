@@ -2,19 +2,23 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class CooperatingCompanies {
+public class Guest extends Model {
+
     @Constraints.Required
     public Integer id;
     @Constraints.Required
-    @Constraints.MaxLength(300)
+    @Constraints.MaxLength(200)
     public String name;
     @Constraints.Required
     @Constraints.MaxLength(50)
     public String phone;
-    @Constraints.MaxLength(50)
+    @Constraints.MaxLength(100)
     public String mail;
+    @Constraints.Required
+    public Integer booker;
+    public Integer userId;
 
-    public CooperatingCompanies() {}
+    public Guest() {}
 
     public Integer getId() {
         return id;
@@ -46,5 +50,21 @@ public class CooperatingCompanies {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public Integer getBooker() {
+        return booker;
+    }
+
+    public void setBooker(Integer booker) {
+        this.booker = booker;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

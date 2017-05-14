@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Employees {
+public class Employee {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -22,7 +22,7 @@ public class Employees {
     public Integer idDepartment;
     public BigDecimal bonus;
 
-    public Employees() {}
+    public Employee() {}
 
     public Integer getId() {
         return id;
