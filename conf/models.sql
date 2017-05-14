@@ -30,9 +30,9 @@ COMMENT ON TABLE standard IS 'Different types of room standard';
 
 COMMENT ON COLUMN standard.base_price IS 'Base price is only an information for setting price for a particular room.';
 
-CREATE TABLE user ( 
+CREATE TABLE "user" (
 	id                   serial  NOT NULL,
-	mail                 varchar(100)  NOT NULL,
+	email                varchar(100)  NOT NULL,
 	pass_hash            varchar(100)  ,
 	is_admin             bool  ,
 	CONSTRAINT pk_users PRIMARY KEY ( id )
@@ -66,7 +66,7 @@ CREATE TABLE cooperating_company (
 	id                   serial  NOT NULL,
 	name                 varchar(300)  NOT NULL,
 	phone                varchar(50)  NOT NULL,
-	mail                 varchar(50)  ,
+	email                varchar(50)  ,
 	responsible_worker   integer  ,
 	CONSTRAINT pk_cooperating_companies PRIMARY KEY ( id )
  );
@@ -88,7 +88,7 @@ CREATE TABLE employee (
 	name                 varchar(200)  NOT NULL,
 	address              varchar(300)  NOT NULL,
 	phone                varchar(50)  NOT NULL,
-	mail                 varchar(100)  ,
+	email                varchar(100)  ,
 	id_department        integer  NOT NULL,
 	bonus                numeric(8,2)  ,
 	CONSTRAINT pk_employees PRIMARY KEY ( id )
@@ -115,7 +115,7 @@ CREATE TABLE guest (
 	id                   serial  NOT NULL,
 	name                 varchar(200)  NOT NULL,
 	phone                varchar(50)  NOT NULL,
-	mail                 varchar(100)  ,
+	email                varchar(100)  ,
 	booker               integer  NOT NULL,
 	user_id              integer  ,
 	CONSTRAINT pk_guests PRIMARY KEY ( id )
@@ -139,7 +139,7 @@ CREATE INDEX idx_notifications ON notification ( id_department );
 
 CREATE INDEX idx_notifications_0 ON notification ( id_type );
 
-CREATE TABLE order ( 
+CREATE TABLE "order" (
 	id                   serial  NOT NULL,
 	id_guest             integer  NOT NULL,
 	received_date        date  ,
@@ -148,11 +148,11 @@ CREATE TABLE order (
 	CONSTRAINT pk_orders PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_orders ON order ( id_order_category );
+CREATE INDEX idx_orders ON "order" ( id_order_category );
 
-CREATE INDEX idx_orders_0 ON order ( id_guest );
+CREATE INDEX idx_orders_0 ON "order" ( id_guest );
 
-CREATE INDEX idx_orders_1 ON order ( id_notification );
+CREATE INDEX idx_orders_1 ON "order" ( id_notification );
 
 CREATE TABLE payment ( 
 	id                   serial  NOT NULL,
@@ -205,7 +205,7 @@ ALTER TABLE guest ADD CONSTRAINT fk_leaders FOREIGN KEY ( booker ) REFERENCES gu
 
 COMMENT ON CONSTRAINT fk_leaders ON guest IS '';
 
-ALTER TABLE guest ADD CONSTRAINT fk_guests_users FOREIGN KEY ( user_id ) REFERENCES user( id );
+ALTER TABLE guest ADD CONSTRAINT fk_guests_users FOREIGN KEY ( user_id ) REFERENCES "user"( id );
 
 COMMENT ON CONSTRAINT fk_guests_users ON guest IS '';
 
@@ -217,19 +217,19 @@ ALTER TABLE notification ADD CONSTRAINT fk_notifications_type FOREIGN KEY ( id_t
 
 COMMENT ON CONSTRAINT fk_notifications_type ON notification IS '';
 
-ALTER TABLE order ADD CONSTRAINT fk_orders_categories FOREIGN KEY ( id_order_category ) REFERENCES order_category( id );
+ALTER TABLE "order" ADD CONSTRAINT fk_orders_categories FOREIGN KEY ( id_order_category ) REFERENCES order_category( id );
 
-COMMENT ON CONSTRAINT fk_orders_categories ON order IS '';
+COMMENT ON CONSTRAINT fk_orders_categories ON "order" IS '';
 
-ALTER TABLE order ADD CONSTRAINT fk_orders_guests FOREIGN KEY ( id_guest ) REFERENCES guest( id );
+ALTER TABLE "order" ADD CONSTRAINT fk_orders_guests FOREIGN KEY ( id_guest ) REFERENCES guest( id );
 
-COMMENT ON CONSTRAINT fk_orders_guests ON order IS '';
+COMMENT ON CONSTRAINT fk_orders_guests ON "order" IS '';
 
-ALTER TABLE order ADD CONSTRAINT fk_orders_not FOREIGN KEY ( id_notification ) REFERENCES notification( id );
+ALTER TABLE "order" ADD CONSTRAINT fk_orders_not FOREIGN KEY ( id_notification ) REFERENCES notification( id );
 
-COMMENT ON CONSTRAINT fk_orders_not ON order IS '';
+COMMENT ON CONSTRAINT fk_orders_not ON "order" IS '';
 
-ALTER TABLE payment ADD CONSTRAINT fk_payments_orders FOREIGN KEY ( id_order ) REFERENCES order( id );
+ALTER TABLE payment ADD CONSTRAINT fk_payments_orders FOREIGN KEY ( id_order ) REFERENCES "order"( id );
 
 COMMENT ON CONSTRAINT fk_payments_orders ON payment IS '';
 
@@ -253,7 +253,7 @@ ALTER TABLE room ADD CONSTRAINT fk_room_photo FOREIGN KEY ( id_photo ) REFERENCE
 
 COMMENT ON CONSTRAINT fk_room_photo ON room IS '';
 
-ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES user( id );
+ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES "user"( id );
 
 COMMENT ON CONSTRAINT fk_session_user ON session IS '';
 
