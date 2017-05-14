@@ -5,7 +5,7 @@ import play.data.validation.Constraints;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderCategories {
+public class OrderCategory {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -16,7 +16,7 @@ public class OrderCategories {
     @Constraints.Required
     public Boolean availability;
 
-    public OrderCategories() {}
+    public OrderCategory() {}
 
     public Integer getId() {
         return id;

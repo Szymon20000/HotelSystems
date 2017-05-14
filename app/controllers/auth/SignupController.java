@@ -3,6 +3,7 @@ package controllers.auth;
 import authorization.Authenticator;
 import authorization.UsernameAlreadyExistsException;
 import authorization.models.UserForm;
+import helpers.SessionMessages;
 import models.DatabaseException;
 import play.data.Form;
 import play.data.FormFactory;
@@ -14,6 +15,7 @@ import play.mvc.Result;
 import javax.inject.Inject;
 
 import static play.mvc.Results.ok;
+import static play.mvc.Results.redirect;
 
 public class SignupController extends AuthController {
     @Inject
@@ -48,6 +50,7 @@ public class SignupController extends AuthController {
         if(form.hasErrors()) {
             return ok(views.html.auth_views.signup.render(form, context.messages()));
         }
-        return ok(user.email + " " + user.pass);
+        SessionMessages.addSuccess("You have successfully signed up!");
+        return redirect(controllers.auth.routes.LoginController.get());
     }
 }

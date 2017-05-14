@@ -4,19 +4,20 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Rooms {
+public class Room extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
     public BigDecimal price;
     @Constraints.Required
-    public Integer nuberOfBeds;
+    public Integer numberOfBeds;
     @Constraints.Required
-    public Integer idClass;
+    public Integer idStandard;
     @Constraints.Required
     public Integer floor;
+    public Integer idPhoto;
 
-    public Rooms() {}
+    public Room() {}
 
     public Integer getId() {
         return id;
@@ -34,20 +35,20 @@ public class Rooms {
         this.price = price;
     }
 
-    public Integer getNuberOfBeds() {
-        return nuberOfBeds;
+    public Integer getNumberOfBeds() {
+        return numberOfBeds;
     }
 
-    public void setNuberOfBeds(Integer nuberOfBeds) {
-        this.nuberOfBeds = nuberOfBeds;
+    public void setNumberOfBeds(Integer numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
     }
 
-    public Integer getIdClass() {
-        return idClass;
+    public Integer getIdStandard() {
+        return idStandard;
     }
 
-    public void setIdClass(Integer idClass) {
-        this.idClass = idClass;
+    public void setIdStandard(Integer idStandard) {
+        this.idStandard = idStandard;
     }
 
     public Integer getFloor() {
@@ -57,4 +58,13 @@ public class Rooms {
     public void setFloor(Integer floor) {
         this.floor = floor;
     }
+
+    public Integer getIdPhoto() {
+        return idPhoto;
+    }
+
+    public void setIdPhoto(Integer idPhoto) {
+        this.idPhoto = idPhoto;
+    }
+
 }

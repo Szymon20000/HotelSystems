@@ -2,14 +2,14 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class NotificationTypes {
+public class NotificationType {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
     @Constraints.MaxLength(200)
     public String name;
 
-    public NotificationTypes() {}
+    public NotificationType() {}
 
     public int getId() {
         return id;

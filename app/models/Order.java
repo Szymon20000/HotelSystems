@@ -4,19 +4,18 @@ import play.data.validation.Constraints;
 
 import java.util.Date;
 
-public class Orders {
+public class Order {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
     public Integer idGuest;
     public Date receivedDate;
     @Constraints.Required
-    public Integer idOrderCategories;
-
+    public Integer idOrderCategory;
     @Constraints.Required
     public Integer idNotification;
 
-    public Orders() {}
+    public Order() {}
 
     public Integer getId() {
         return id;
@@ -42,12 +41,12 @@ public class Orders {
         receivedDate = receivedDate;
     }
 
-    public Integer getIdOrderCategories() {
-        return idOrderCategories;
+    public Integer getIdOrderCategory() {
+        return idOrderCategory;
     }
 
-    public void setIdOrderCategories(int idOrderCategories) {
-        idOrderCategories = idOrderCategories;
+    public void setIdOrderCategory(int idOrderCategory) {
+        idOrderCategory = idOrderCategory;
     }
 
     public Integer getIdNotification() {

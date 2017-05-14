@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Classes extends Model {
+public class Standard extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -13,7 +13,7 @@ public class Classes extends Model {
     @Constraints.Required
     public BigDecimal basePrice;
 
-    public Classes() {}
+    public Standard() {}
 
     public Integer getId() {
         return id;

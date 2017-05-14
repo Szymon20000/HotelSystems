@@ -1,7 +1,7 @@
 package controllers.booking;
 
 import forms.SearchForm;
-import models.Classes;
+import models.Standard;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
@@ -25,10 +25,10 @@ public class SearchController {
         this.formFactory = formFactory;
     }
 
-    private static Map<String, String> getRoomClassesMap() {
+    private static Map<String, String> getRoomStandardsMap() {
         Map<String, String> mapping = new TreeMap<>();
-        List<Classes> roomClasses = Classes.findAll(Classes.class);
-        for(Classes cls: roomClasses) {
+        List<Standard> roomStandards = Standard.findAll(Standard.class);
+        for(Standard cls: roomStandards) {
             mapping.put(cls.getId().toString(), cls.getName());
         }
 
@@ -38,16 +38,16 @@ public class SearchController {
     public Result get() {
         Form<SearchForm> form = formFactory.form(SearchForm.class);
         Http.Context context = Http.Context.current();
-        return ok(views.html.booking_views.search.render(form, getRoomClassesMap(), context.messages()));
+        return ok(views.html.booking_views.search.render(form, getRoomStandardsMap(), context.messages()));
     }
 
     public Result post() {
         Form<SearchForm> form = formFactory.form(SearchForm.class).bindFromRequest();
         Http.Context context = Http.Context.current();
         if(form.hasErrors()) {
-            return ok(views.html.booking_views.search.render(form, getRoomClassesMap(), context.messages()));
+            return ok(views.html.booking_views.search.render(form, getRoomStandardsMap(), context.messages()));
         }
         SearchForm searchForm = form.get();
-        return ok(views.html.booking_views.search.render(form, getRoomClassesMap(), context.messages()));
+        return ok(views.html.booking_views.search.render(form, getRoomStandardsMap(), context.messages()));
     }
 }

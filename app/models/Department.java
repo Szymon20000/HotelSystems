@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.math.BigDecimal;
 
-public class Departments {
+public class Department {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -15,7 +15,7 @@ public class Departments {
     @Constraints.Required
     public Integer leader;
 
-    public Departments() {}
+    public Department() {}
 
     public Integer getId() {
         return id;
