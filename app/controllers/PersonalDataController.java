@@ -2,7 +2,7 @@ package controllers;
 
 import authorization.Authenticator;
 import authorization.models.User;
-import models.Guests;
+import models.Guest;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.Database;
@@ -28,19 +28,19 @@ public class PersonalDataController extends Controller {
         DynamicForm form = formFactory.form();
         Http.Context context = Http.Context.current();
         User user = Authenticator.getUser();
-        Guests userGuest=null;
+        Guest userGuest=null;
         try {
-            userGuest = Guests.find("mail", user.getEmail(), Guests.class);
+            userGuest = Guest.find("mail", user.getEmail(), Guest.class);
         } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e){}
         return ok(views.html.personaldata.render(2, form, userGuest, context.messages()));
     }
 
     public Result post() {
-        ArrayList<Guests> guestsList = new ArrayList<>();
+        ArrayList<Guest> guestsList = new ArrayList<>();
         DynamicForm requestData = formFactory.form().bindFromRequest();
         Http.Context context = Http.Context.current();
         for(int i=0;i<2;i++) {
-            Guests guest = new Guests();
+            Guest guest = new Guest();
             guest.setMail(requestData.get("email"+i));
             guest.setName(requestData.get("name"+i));
             guest.setPhone(requestData.get("phone"+i));

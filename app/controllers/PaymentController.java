@@ -1,7 +1,7 @@
 package controllers;
 
 import helpers.SessionMessages;
-import models.Guests;
+import models.Guest;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.Database;
