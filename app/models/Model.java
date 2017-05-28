@@ -222,6 +222,9 @@ public abstract class Model {
             Connection connection = db.getConnection();
             String sql;
             if(val instanceof List) {
+                if(((List) val).isEmpty())
+                    return res;
+
                 sql = "SELECT * FROM \"" + makeSql(cl.getSimpleName()) + "\" WHERE " + makeSql(fieldName)
                         + " IN(" + String.join(",", Collections.nCopies(((List)val).size(), "?")) + ")";
             }

@@ -13,19 +13,19 @@
       form("endDate"))(
       '_label -> "From/to"
     )
-    @b3.select( form("roomClass"), '_label -> "Room's class" ) { implicit values =>
+    @b3.select( form("roomStandard"), '_label -> "Room's class" ) { implicit values =>
       @for((key, value) <- classes) {
         @b3.selectOption(key, value)
       }
     }
     @b3.slider(form("priceRange"),
       "0 PLN",
-      "1000 PLN",
+      "2000 PLN",
       '_label -> "Price range",
       Symbol("data-slider-min") -> "0",
-      Symbol("data-slider-max") ->"1000",
+      Symbol("data-slider-max") ->"2000",
       Symbol("data-slider-step") -> "50",
-      Symbol("data-slider-value") -> "[300,700]"
+      Symbol("data-slider-value") -> "[300,1300]"
     )
     @b3.submit('class -> "btn btn-default"){ Search }
   }

@@ -3,9 +3,10 @@
 # ~~~~
 
 GET     /                     controllers.booking.SearchController.get
+GET     /search               controllers.booking.SearchController.get
 POST    /search               controllers.booking.SearchController.post
 
-GET     /rooms                controllers.booking.SearchResultController.index
+GET     /rooms                controllers.booking.SearchResultController.get
 
 GET     /login                controllers.auth.LoginController.get
 POST    /login                controllers.auth.LoginController.post
