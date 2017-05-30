@@ -2,8 +2,7 @@ package controllers;
 
 import authorization.Authenticator;
 import authorization.models.User;
-import controllers.auth.*;
-import controllers.auth.routes;
+import controllers.*;
 import models.Guest;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -60,11 +59,13 @@ public class PersonalDataController extends Controller {
 
         //redirecting to login page when user already exists
         if (Authenticator.getUser() == null && user != null) {
+            session("referral", controllers.routes.PersonalDataController.get().url());
             return redirect(controllers.auth.routes.LoginController.get());
         }
 
         //redirecting to sign up page when when user with given email doesn't exists
         if (Authenticator.getUser() == null && user == null) {
+            session("referral", controllers.routes.PersonalDataController.get().url());
             return redirect(controllers.auth.routes.SignupController.get());
         }
 
