@@ -3,6 +3,7 @@ package controllers;
 import authorization.Authenticator;
 import authorization.models.User;
 import controllers.auth.*;
+import controllers.auth.routes;
 import models.Guest;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -29,10 +30,11 @@ public class PersonalDataController extends Controller {
         DynamicForm form = formFactory.form();
         Http.Context context = Http.Context.current();
         User user = Authenticator.getUser();
-        Guest userGuest=null;
+        Guest userGuest = null;
         try {
             userGuest = Guest.find("email", user.getEmail(), Guest.class);
-        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e){}
+        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e) {
+        }
         return ok(views.html.personaldata.render(3, form, userGuest, context.messages()));
     }
 
@@ -40,20 +42,30 @@ public class PersonalDataController extends Controller {
         ArrayList<Guest> guestsList = new ArrayList<>();
         DynamicForm requestData = formFactory.form().bindFromRequest();
         Http.Context context = Http.Context.current();
-        for(int i = 0; i < 3; ++i) {
+        for (int i = 0; i < 3; ++i) {
             Guest guest = new Guest();
-            guest.setEmail(requestData.get("email"+i));
-            guest.setName(requestData.get("name"+i));
-            guest.setPhone(requestData.get("phone"+i));
+            guest.setEmail(requestData.get("email" + i));
+            guest.setName(requestData.get("name" + i));
+            guest.setPhone(requestData.get("phone" + i));
             guestsList.add(guest);
+            session("email" + i, guest.getEmail());
+            session("name" + i, guest.getName());
+            session("phone" + i, guest.getPhone());
         }
-        User user=null;
+        User user = null;
         try {
             user = User.find("email", guestsList.get(0).getEmail(), User.class);
-        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e){}
+        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e) {
+        }
 
-        if(Authenticator.getUser()==null && user!=null){
+        //redirecting to login page when user already exists
+        if (Authenticator.getUser() == null && user != null) {
             return redirect(controllers.auth.routes.LoginController.get());
+        }
+
+        //redirecting to sign up page when when user with given email doesn't exists
+        if (Authenticator.getUser() == null && user == null) {
+            return redirect(controllers.auth.routes.SignupController.get());
         }
 
         return ok(views.html.datasubmitted.render(guestsList, formFactory.form(), context.messages()));

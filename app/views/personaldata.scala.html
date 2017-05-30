@@ -31,9 +31,15 @@
                     <div class="panel-title">Next person</div>
                 </div>
                 <div class="panel-body">
+                @if(session().get("name" + p) != null) {
+                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().get("name" + p))
+                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().get("phone" + p))
+                    @b3.email(form("email" + p), '_label -> "E-email", 'value -> session().get("email" + p))
+                } else{
                     @b3.text(form("name" + p), '_label -> "Name")
                     @b3.tel(form("phone" + p), '_label -> "Phone")
                     @b3.email(form("email" + p), '_label -> "E-email")
+                }
                 </div>
             </div>
         }
