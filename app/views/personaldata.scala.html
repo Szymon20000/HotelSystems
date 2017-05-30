@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName)
                     @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone)
-                    @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> user.getMail, 'readonly -> true)
+                    @b3.email(form("email" + 0), '_label -> "E-email", 'value -> user.getEmail, 'readonly -> true)
                 </div>
             </div>
         } else {
@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     @b3.text(form("name" + 0), '_label -> "Name")
                     @b3.tel(form("phone" + 0), '_label -> "Phone")
-                    @b3.email(form("email" + 0), '_label -> "E-mail")
+                    @b3.email(form("email" + 0), '_label -> "E-email")
                 </div>
             </div>
         }
@@ -33,7 +33,7 @@
                 <div class="panel-body">
                     @b3.text(form("name" + p), '_label -> "Name")
                     @b3.tel(form("phone" + p), '_label -> "Phone")
-                    @b3.email(form("email" + p), '_label -> "E-mail")
+                    @b3.email(form("email" + p), '_label -> "E-email")
                 </div>
             </div>
         }

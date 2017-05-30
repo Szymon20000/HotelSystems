@@ -13,7 +13,7 @@ public class Guest extends Model {
     @Constraints.MaxLength(50)
     public String phone;
     @Constraints.MaxLength(100)
-    public String mail;
+    public String email;
     @Constraints.Required
     public Integer booker;
     public Integer userId;
@@ -44,12 +44,12 @@ public class Guest extends Model {
         this.phone = phone;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getBooker() {

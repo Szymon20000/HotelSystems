@@ -2,6 +2,7 @@ package controllers;
 
 import authorization.Authenticator;
 import authorization.models.User;
+import controllers.auth.*;
 import models.Guest;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -30,22 +31,31 @@ public class PersonalDataController extends Controller {
         User user = Authenticator.getUser();
         Guest userGuest=null;
         try {
-            userGuest = Guest.find("mail", user.getEmail(), Guest.class);
+            userGuest = Guest.find("email", user.getEmail(), Guest.class);
         } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e){}
-        return ok(views.html.personaldata.render(2, form, userGuest, context.messages()));
+        return ok(views.html.personaldata.render(3, form, userGuest, context.messages()));
     }
 
     public Result post() {
         ArrayList<Guest> guestsList = new ArrayList<>();
         DynamicForm requestData = formFactory.form().bindFromRequest();
         Http.Context context = Http.Context.current();
-        for(int i=0;i<2;i++) {
+        for(int i = 0; i < 3; ++i) {
             Guest guest = new Guest();
-            guest.setMail(requestData.get("email"+i));
+            guest.setEmail(requestData.get("email"+i));
             guest.setName(requestData.get("name"+i));
             guest.setPhone(requestData.get("phone"+i));
             guestsList.add(guest);
         }
+        User user=null;
+        try {
+            user = User.find("email", guestsList.get(0).getEmail(), User.class);
+        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e){}
+
+        if(Authenticator.getUser()==null && user!=null){
+            return redirect(controllers.auth.routes.LoginController.get());
+        }
+
         return ok(views.html.datasubmitted.render(guestsList, formFactory.form(), context.messages()));
     }
 }

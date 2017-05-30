@@ -175,6 +175,8 @@ public abstract class Model {
         try {
             statement = connection.prepareStatement(sql);
             statement.setObject(1, val);
+            System.out.println(statement);
+
             ResultSet result = statement.executeQuery();
 
             if(!result.next()) {

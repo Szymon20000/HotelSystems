@@ -9,7 +9,7 @@
 
   @b3.form(auth.routes.SignupController.post) {
     @CSRF.formField
-    @b3.email( form("email"), '_label -> "E-mail", 'placeholder -> "example@mail.com" )
+    @b3.email( form("email"), '_label -> "E-email", 'placeholder -> "example@email.com" )
     @b3.password( form("pass"), '_label -> "Password", 'placeholder -> "Password" )
     @b3.submit('class -> "btn btn-default"){ Sign up }
   }
