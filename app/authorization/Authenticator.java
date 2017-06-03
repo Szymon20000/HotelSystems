@@ -38,7 +38,7 @@ public class Authenticator {
             } else {
                 throw new NoSuchUserException();
             }
-        } catch (NoSuchFieldException | IllegalAccessException | InstantiationException e) {
+        } catch (NoSuchFieldException | IllegalAccessException | DatabaseException e) {
             throw new NoSuchUserException();
         }
     }

@@ -29,11 +29,7 @@ public class PersonalDataController extends Controller {
         DynamicForm form = formFactory.form();
         Http.Context context = Http.Context.current();
         User user = Authenticator.getUser();
-        Guest userGuest = null;
-        try {
-            userGuest = Guest.find("email", user.getEmail(), Guest.class);
-        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e) {
-        }
+        Guest userGuest = Guest.find("email", user.getEmail(), Guest.class);
         return ok(views.html.personaldata.render(3, form, userGuest, context.messages()));
     }
 
@@ -51,11 +47,7 @@ public class PersonalDataController extends Controller {
             session("name" + i, guest.getName());
             session("phone" + i, guest.getPhone());
         }
-        User user = null;
-        try {
-            user = User.find("email", guestsList.get(0).getEmail(), User.class);
-        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException | InstantiationException e) {
-        }
+        User user = User.find("email", guestsList.get(0).getEmail(), User.class);
 
         //redirecting to login page when user already exists
         if (Authenticator.getUser() == null && user != null) {
