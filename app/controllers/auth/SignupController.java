@@ -41,7 +41,7 @@ public class SignupController extends AuthController {
             Authenticator.signUp(user);
         }
         catch (UsernameAlreadyExistsException e) {
-            form.reject(new ValidationError("email", "E-email is already taken."));
+            form.reject(new ValidationError("email", "E-mail is already taken."));
         }
         catch (DatabaseException e) {
             form.reject("Something went terribly wrong. Please retry.");

@@ -1,15 +1,11 @@
-package controllers;
+package controllers.booking;
 
 import helpers.SessionMessages;
-import models.Guest;
-import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.Database;
-import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 
 import static play.mvc.Results.ok;
 
@@ -25,6 +21,6 @@ public class PaymentController {
 
     public Result post() {
         SessionMessages.addSuccess("Your payment was successful!");
-        return ok(views.html.payment.render());
+        return ok(views.html.booking_views.payment.render());
     }
 }

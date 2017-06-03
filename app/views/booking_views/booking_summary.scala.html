@@ -1,19 +1,21 @@
-@(guests: ArrayList[models.Guest], form: DynamicForm)(implicit messages: play.i18n.Messages)
+@import forms.SearchForm
+@import forms.SearchResultForm
+@(guests: ArrayList[models.Guest], form: DynamicForm, searchForm: SearchForm, searchResultForm: SearchResultForm, price: java.math.BigDecimal)(implicit messages: play.i18n.Messages)
 
 @import b3.vertical.fieldConstructor;
 @import views.html.helper.CSRF;
 
 @main("Personal data") { } {
-    @b3.form(routes.PaymentController.post) {
+    @b3.form(booking.routes.PaymentController.post) {
         @CSRF.formField
 
         <h1>Summary</h1>
         <div class="panel panel-default">
             <div class="panel-body alert-warning">
-                <b>Chosen room:</b> 10<br>
-                <b>Number of guests:</b> 2<br>
-                <b>From/to:</b> 10.10.2010/11.11.2011<br>
-                <b>Final price:</b> $100000<br>
+                <b>Chosen room:</b> @searchResultForm.selectedRoom<br>
+                <b>Number of guests:</b> @searchForm.guests<br>
+                <b>From/to:</b> @searchForm.startDate/@searchForm.endDate<br>
+                <b>Final price:</b> @price<br>
             </div>
         </div>
         @for(p <- 0 until guests.size()) {
@@ -21,7 +23,7 @@
                 <div class="panel-body">
                     <b>Name:</b> @guests.get(p).getName <br>
                     <b>Phone:</b> @guests.get(p).getPhone<br>
-                    <b>E-email:</b> @guests.get(p).getEmail
+                    <b>E-mail:</b> @guests.get(p).getEmail
                 </div>
             </div>
         }

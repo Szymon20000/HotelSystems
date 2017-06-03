@@ -1,13 +1,17 @@
 package controllers.booking;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
 import forms.SearchForm;
+import forms.SearchResultForm;
 import models.Photo;
 import models.Room;
+import play.data.Form;
 import play.data.FormFactory;
 import play.db.Database;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
@@ -56,6 +60,23 @@ public class SearchResultController extends Controller {
                 photo -> photo.id,
                 photo -> photo
         ));
-        return ok(views.html.booking_views.search_results.render(listOfRooms, photosMap));
+
+        Form<SearchResultForm> resultForm = formFactory.form(SearchResultForm.class);
+        Http.Context context = Http.Context.current();
+
+        return ok(views.html.booking_views.search_results.render(listOfRooms, photosMap, resultForm, context.messages()));
+    }
+
+    public Result post() {
+        if (!session().containsKey("searchResults"))
+            return redirect(controllers.booking.routes.SearchController.get());
+
+        Form<SearchResultForm> form = formFactory.form(SearchResultForm.class).bindFromRequest();
+        if(form.hasErrors()) {
+            return redirect(controllers.booking.routes.SearchResultController.get());
+        }
+        SearchResultForm searchResultForm = form.get();
+        session().put("chosenRoom", new Gson().toJson(searchResultForm));
+        return redirect(controllers.booking.routes.PersonalDataController.get());
     }
 }
