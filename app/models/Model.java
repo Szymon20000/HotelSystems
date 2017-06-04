@@ -203,10 +203,15 @@ public abstract class Model {
         return res;
     }
 
-    public static <T extends Model> T find(String fieldName, Object val, Class<T> cl) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
-        T res = cl.newInstance();
-        if(res.load(fieldName, val)) {
-            return res;
+    public static <T extends Model> T find(String fieldName, Object val, Class<T> cl) {
+        T res = null;
+        try {
+            res = cl.newInstance();
+            if(res.load(fieldName, val)) {
+                return res;
+            }
+        } catch (NoSuchFieldException | IllegalAccessException | InstantiationException e) {
+            throw new DatabaseException();
         }
         return null;
     }

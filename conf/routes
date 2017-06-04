@@ -7,6 +7,7 @@ GET     /search               controllers.booking.SearchController.get
 POST    /search               controllers.booking.SearchController.post
 
 GET     /rooms                controllers.booking.SearchResultController.get
+POST    /rooms                controllers.booking.SearchResultController.post
 
 GET     /login                controllers.auth.LoginController.get
 POST    /login                controllers.auth.LoginController.post
@@ -19,6 +20,10 @@ GET     /logout               controllers.auth.LogoutController.get
 GET     /guest-contact        controllers.guest_panel.ContactController.get
 POST    /guest-contact        controllers.guest_panel.ContactController.post
 
+GET     /personal-data        controllers.booking.PersonalDataController.get
+POST    /personal-data        controllers.booking.PersonalDataController.post
+
+POST    /payment              controllers.booking.PaymentController.post
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)

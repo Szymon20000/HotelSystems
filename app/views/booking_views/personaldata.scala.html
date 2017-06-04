@@ -1,0 +1,42 @@
+@(guests: Integer, form: DynamicForm, user: models.Guest)(implicit messages: play.i18n.Messages)
+
+@import b3.vertical.fieldConstructor;
+@import views.html.helper.CSRF;
+
+@main("Personal data") { } {
+    @b3.form(booking.routes.PersonalDataController.post) {
+        @CSRF.formField
+
+        @if(user != null) {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName, 'required -> true)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone, 'required -> true)
+                    @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> user.getEmail, 'readonly -> true)
+                </div>
+            </div>
+        } else {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> session().getOrDefault("name0", ""), 'required -> true)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> session().getOrDefault("phone0", ""), 'required -> true)
+                    @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> session().getOrDefault("email0", ""), 'required -> true)
+                </div>
+            </div>
+        }
+
+        @for(p <- 1 until guests) {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Next person</div>
+                </div>
+                <div class="panel-body">
+                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().getOrDefault("name" + p, ""), 'required -> true)
+                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().getOrDefault("phone" + p, ""), 'required -> true)
+                    @b3.email(form("email" + p), '_label -> "E-mail", 'value -> session().getOrDefault("email" + p, ""), 'required -> true)
+                </div>
+            </div>
+        }
+        @b3.submit('class -> "btn btn-default") { Submit }
+    }
+}

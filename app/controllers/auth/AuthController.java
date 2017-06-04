@@ -2,10 +2,11 @@ package controllers.auth;
 
 import play.data.FormFactory;
 import play.db.Database;
+import play.mvc.Controller;
 
 import javax.inject.Inject;
 
-public class AuthController {
+public class AuthController extends Controller {
     Database db;
     final play.data.FormFactory formFactory;
 
