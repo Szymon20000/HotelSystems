@@ -10,17 +10,17 @@
         @if(user != null) {
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName)
-                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone)
+                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> user.getName, 'required -> true)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> user.getPhone, 'required -> true)
                     @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> user.getEmail, 'readonly -> true)
                 </div>
             </div>
         } else {
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @b3.text(form("name" + 0), '_label -> "Name")
-                    @b3.tel(form("phone" + 0), '_label -> "Phone")
-                    @b3.email(form("email" + 0), '_label -> "E-mail")
+                    @b3.text(form("name" + 0), '_label -> "Name", 'required -> true)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'required -> true)
+                    @b3.email(form("email" + 0), '_label -> "E-mail", 'required -> true)
                 </div>
             </div>
         }
@@ -32,13 +32,13 @@
                 </div>
                 <div class="panel-body">
                 @if(session().get("name" + p) != null) {
-                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().get("name" + p))
-                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().get("phone" + p))
-                    @b3.email(form("email" + p), '_label -> "E-mail", 'value -> session().get("email" + p))
+                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().get("name" + p), 'required -> true)
+                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().get("phone" + p), 'required -> true)
+                    @b3.email(form("email" + p), '_label -> "E-mail", 'value -> session().get("email" + p), 'required -> true)
                 } else{
-                    @b3.text(form("name" + p), '_label -> "Name")
-                    @b3.tel(form("phone" + p), '_label -> "Phone")
-                    @b3.email(form("email" + p), '_label -> "E-mail")
+                    @b3.text(form("name" + p), '_label -> "Name", 'required -> true)
+                    @b3.tel(form("phone" + p), '_label -> "Phone", 'required -> true)
+                    @b3.email(form("email" + p), '_label -> "E-mail", 'required -> true)
                 }
                 </div>
             </div>

@@ -54,7 +54,10 @@ public class PersonalDataController extends Controller {
         DynamicForm form = formFactory.form();
         Http.Context context = Http.Context.current();
         User user = Authenticator.getUser();
-        Guest userGuest = Guest.find("email", user.getEmail(), Guest.class);
+        Guest userGuest = null;
+        if (user != null) {
+            userGuest = Guest.findGuest(user.getEmail());
+        }
         return ok(views.html.booking_views.personaldata.render(searchForm.guests, form, userGuest, context.messages()));
     }
 
@@ -94,6 +97,20 @@ public class PersonalDataController extends Controller {
         if (Authenticator.getUser() == null && user == null) {
             session("referral", controllers.booking.routes.PersonalDataController.get().url());
             return redirect(controllers.auth.routes.SignupController.get());
+        }
+
+        //saving guests to database
+        Integer bookerId=null;
+        for(int i=0;i<guestsList.size();i++){
+            Guest guest = guestsList.get(i);
+            if(i==0){
+                guest.save();
+                bookerId = Guest.findGuest(guest.email).getId();
+            }
+            else{
+                guest.setBooker(bookerId);
+                guest.save();
+            }
         }
 
         Room selectedRoom = Room.find("id", searchResultForm.selectedRoom, Room.class);

@@ -2,6 +2,8 @@ package models;
 
 import play.data.validation.Constraints;
 
+import java.util.List;
+
 public class Guest extends Model {
 
     @Constraints.Required
@@ -66,5 +68,10 @@ public class Guest extends Model {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public static Guest findGuest(String email) {
+        List<Guest> l= Guest.findAll("email", email, Guest.class );
+        return l.get(l.size()-1);
     }
 }
