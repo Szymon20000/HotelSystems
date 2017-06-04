@@ -257,3 +257,14 @@ ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFER
 
 COMMENT ON CONSTRAINT fk_session_user ON session IS '';
 
+CREATE OR REPLACE FUNCTION booker_check() RETURNS trigger AS $booker_check$
+BEGIN
+  IF NEW.booker IS NULL then
+    NEW.booker = NEW.id;
+  END IF;
+  RETURN NEW;
+END;
+$booker_check$ LANGUAGE plpgsql;
+
+CREATE TRIGGER booker_check BEFORE INSERT ON guest
+FOR EACH ROW EXECUTE PROCEDURE booker_check();
