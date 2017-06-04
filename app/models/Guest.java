@@ -71,7 +71,9 @@ public class Guest extends Model {
     }
 
     public static Guest findGuest(String email) {
-        List<Guest> l= Guest.findAll("email", email, Guest.class );
-        return l.get(l.size()-1);
+        List<Guest> list = Guest.findAll("email", email, Guest.class);
+        if(list.isEmpty())
+            return null;
+        return list.get(list.size()-1);
     }
 }

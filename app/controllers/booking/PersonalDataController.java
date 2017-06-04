@@ -95,19 +95,20 @@ public class PersonalDataController extends Controller {
 
         //redirecting to sign up page when when user with given email doesn't exists
         if (Authenticator.getUser() == null && user == null) {
+            session("signupEmail", guestsList.get(0).getEmail());
             session("referral", controllers.booking.routes.PersonalDataController.get().url());
             return redirect(controllers.auth.routes.SignupController.get());
         }
 
         //saving guests to database
-        Integer bookerId=null;
-        for(int i=0;i<guestsList.size();i++){
+        Integer bookerId = null;
+        for(int i = 0; i < guestsList.size(); ++i) {
             Guest guest = guestsList.get(i);
-            if(i==0){
+            if(i == 0) {
                 guest.save();
                 bookerId = Guest.findGuest(guest.email).getId();
             }
-            else{
+            else {
                 guest.setBooker(bookerId);
                 guest.save();
             }

@@ -18,9 +18,9 @@
         } else {
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @b3.text(form("name" + 0), '_label -> "Name", 'required -> true)
-                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'required -> true)
-                    @b3.email(form("email" + 0), '_label -> "E-mail", 'required -> true)
+                    @b3.text(form("name" + 0), '_label -> "Name", 'value -> session().getOrDefault("name0", ""), 'required -> true)
+                    @b3.tel(form("phone" + 0), '_label -> "Phone", 'value -> session().getOrDefault("phone0", ""), 'required -> true)
+                    @b3.email(form("email" + 0), '_label -> "E-mail", 'value -> session().getOrDefault("email0", ""), 'required -> true)
                 </div>
             </div>
         }
@@ -31,15 +31,9 @@
                     <div class="panel-title">Next person</div>
                 </div>
                 <div class="panel-body">
-                @if(session().get("name" + p) != null) {
-                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().get("name" + p), 'required -> true)
-                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().get("phone" + p), 'required -> true)
-                    @b3.email(form("email" + p), '_label -> "E-mail", 'value -> session().get("email" + p), 'required -> true)
-                } else{
-                    @b3.text(form("name" + p), '_label -> "Name", 'required -> true)
-                    @b3.tel(form("phone" + p), '_label -> "Phone", 'required -> true)
-                    @b3.email(form("email" + p), '_label -> "E-mail", 'required -> true)
-                }
+                    @b3.text(form("name" + p), '_label -> "Name", 'value -> session().getOrDefault("name" + p, ""), 'required -> true)
+                    @b3.tel(form("phone" + p), '_label -> "Phone", 'value -> session().getOrDefault("phone" + p, ""), 'required -> true)
+                    @b3.email(form("email" + p), '_label -> "E-mail", 'value -> session().getOrDefault("email" + p, ""), 'required -> true)
                 </div>
             </div>
         }
