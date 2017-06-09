@@ -30,7 +30,7 @@ COMMENT ON TABLE standard IS 'Different types of room standard';
 
 COMMENT ON COLUMN standard.base_price IS 'Base price is only an information for setting price for a particular room.';
 
-CREATE TABLE "user" ( 
+CREATE TABLE "user" (
 	id                   serial  NOT NULL,
 	email                varchar(100)  NOT NULL,
 	pass_hash            varchar(100)  ,
@@ -52,15 +52,15 @@ CREATE INDEX idx_rooms ON room ( id_standard );
 
 CREATE INDEX idx_room ON room ( id_photo );
 
-CREATE TABLE "session" ( 
+CREATE TABLE session ( 
 	id                   serial  NOT NULL,
-	session_id           integer  NOT NULL,
+	session_id           text  NOT NULL,
 	user_id              integer  NOT NULL,
-	expiration_date      date  NOT NULL,
+	expiration_date      bigint  NOT NULL,
 	CONSTRAINT pk_session PRIMARY KEY ( id )
  );
 
-CREATE INDEX idx_session ON "session" ( user_id );
+CREATE INDEX idx_session ON session ( user_id );
 
 CREATE TABLE cooperating_company ( 
 	id                   serial  NOT NULL,
@@ -139,7 +139,7 @@ CREATE INDEX idx_notifications ON notification ( id_department );
 
 CREATE INDEX idx_notifications_0 ON notification ( id_type );
 
-CREATE TABLE "order" ( 
+CREATE TABLE "order" (
 	id                   serial  NOT NULL,
 	id_guest             integer  NOT NULL,
 	received_date        date  ,
@@ -253,7 +253,18 @@ ALTER TABLE room ADD CONSTRAINT fk_room_photo FOREIGN KEY ( id_photo ) REFERENCE
 
 COMMENT ON CONSTRAINT fk_room_photo ON room IS '';
 
-ALTER TABLE "session" ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES "user"( id );
+ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES "user"( id );
 
-COMMENT ON CONSTRAINT fk_session_user ON "session" IS '';
+COMMENT ON CONSTRAINT fk_session_user ON session IS '';
 
+CREATE OR REPLACE FUNCTION booker_check() RETURNS trigger AS $booker_check$
+BEGIN
+  IF NEW.booker IS NULL then
+    NEW.booker = NEW.id;
+  END IF;
+  RETURN NEW;
+END;
+$booker_check$ LANGUAGE plpgsql;
+
+CREATE TRIGGER booker_check BEFORE INSERT ON guest
+FOR EACH ROW EXECUTE PROCEDURE booker_check();
