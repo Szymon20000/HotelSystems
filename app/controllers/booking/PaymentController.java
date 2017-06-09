@@ -52,16 +52,13 @@ public class PaymentController {
         }
 
         //saving guests to database
-        Integer bookerId = null;
-        for (int i = 0; i < guestsList.size(); ++i) {
-            Guest guest = guestsList.get(i);
-            if (i == 0) {
-                guest.save();
-                bookerId = Guest.findGuest(guest.email).getId();
-            } else {
-                guest.setBooker(bookerId);
-                guest.save();
-            }
+        Guest guest = guestsList.get(0);
+        guest.save();
+        Integer bookerId = Guest.findGuest(guest.email).getId();
+        for (int i = 1; i < guestsList.size(); ++i) {
+            guest = guestsList.get(i);
+            guest.setBooker(bookerId);
+            guest.save();
         }
 
         Reservation reservation = new Reservation();
