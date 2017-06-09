@@ -4,7 +4,7 @@ import play.data.validation.Constraints;
 
 import java.util.Date;
 
-public class Reservation {
+public class Reservation extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -25,7 +25,7 @@ public class Reservation {
     }
 
     public void setId(int id) {
-        id = id;
+        this.id = id;
     }
 
     public Integer getIdRoom() {
@@ -33,7 +33,7 @@ public class Reservation {
     }
 
     public void setIdRoom(int idRoom) {
-        idRoom = idRoom;
+        this.idRoom = idRoom;
     }
 
     public Integer getIdGuest() {
@@ -41,7 +41,7 @@ public class Reservation {
     }
 
     public void setIdGuest(int idGuest) {
-        idGuest = idGuest;
+        this.idGuest = idGuest;
     }
 
     public Date getDateFrom() {
@@ -49,7 +49,7 @@ public class Reservation {
     }
 
     public void setDateFrom(Date dateFrom) {
-        dateFrom = dateFrom;
+        this.dateFrom = dateFrom;
     }
 
     public Date getDateTo() {
@@ -57,7 +57,7 @@ public class Reservation {
     }
 
     public void setDateTo(Date dateTo) {
-        dateTo = dateTo;
+        this.dateTo = dateTo;
     }
 
     public Integer getIdNotification() {
@@ -65,6 +65,6 @@ public class Reservation {
     }
 
     public void setIdNotification(int idNotification) {
-        idNotification = idNotification;
+        this.idNotification = idNotification;
     }
 }
