@@ -22,7 +22,7 @@ public class Order {
     }
 
     public void setId(int id) {
-        id = id;
+        this.id = id;
     }
 
     public Integer getIdGuest() {
@@ -30,7 +30,7 @@ public class Order {
     }
 
     public void setIdGuest(int idGuest) {
-        idGuest = idGuest;
+        this.idGuest = idGuest;
     }
 
     public Date getReceivedDate() {
@@ -38,7 +38,7 @@ public class Order {
     }
 
     public void setReceivedDate(Date receivedDate) {
-        receivedDate = receivedDate;
+        this.receivedDate = receivedDate;
     }
 
     public Integer getIdOrderCategory() {
@@ -46,7 +46,7 @@ public class Order {
     }
 
     public void setIdOrderCategory(int idOrderCategory) {
-        idOrderCategory = idOrderCategory;
+        this.idOrderCategory = idOrderCategory;
     }
 
     public Integer getIdNotification() {
@@ -54,6 +54,6 @@ public class Order {
     }
 
     public void setIdNotification(int idNotification) {
-        idNotification = idNotification;
+        this.idNotification = idNotification;
     }
 }

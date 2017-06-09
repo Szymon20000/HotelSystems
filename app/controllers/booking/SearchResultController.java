@@ -6,6 +6,7 @@ import com.google.gson.InstanceCreator;
 import forms.SearchForm;
 import forms.SearchResultForm;
 import models.Photo;
+import models.Reservation;
 import models.Room;
 import play.data.Form;
 import play.data.FormFactory;
@@ -16,6 +17,7 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class SearchResultController extends Controller {
         SearchForm form = gsonBuilder.create().fromJson(session().get("searchResults"), SearchForm.class);
 
         List<Room> listOfRooms = Room.findAll(Room.class);
+        List<Reservation> listOfReservations = Reservation.findAll(Reservation.class);
         listOfRooms = listOfRooms.stream().filter(room -> {
             if(!form.priceRange.contains(room.getPrice()))
                 return false;
@@ -51,6 +54,14 @@ public class SearchResultController extends Controller {
                 return false;
             if(form.roomStandard.compareTo(room.getIdStandard()) != 0)
                 return false;
+            return true;
+        }).filter(room -> {
+            for(Reservation reservation: listOfReservations) {
+                if(reservation.getIdRoom().equals(room.getId()) &&
+                        !reservation.getDateFrom().after(Date.valueOf(form.endDate)) &&
+                        !reservation.getDateTo().before(Date.valueOf(form.startDate)))
+                    return false;
+            }
             return true;
         }).collect(Collectors.toList());
 

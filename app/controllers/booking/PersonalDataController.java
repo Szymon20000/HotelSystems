@@ -100,20 +100,6 @@ public class PersonalDataController extends Controller {
             return redirect(controllers.auth.routes.SignupController.get());
         }
 
-        //saving guests to database
-        Integer bookerId = null;
-        for(int i = 0; i < guestsList.size(); ++i) {
-            Guest guest = guestsList.get(i);
-            if(i == 0) {
-                guest.save();
-                bookerId = Guest.findGuest(guest.email).getId();
-            }
-            else {
-                guest.setBooker(bookerId);
-                guest.save();
-            }
-        }
-
         Room selectedRoom = Room.find("id", searchResultForm.selectedRoom, Room.class);
         BigDecimal price = selectedRoom.getPrice().multiply(BigDecimal.valueOf(searchForm.guests));
         return ok(views.html.booking_views.booking_summary.render(
