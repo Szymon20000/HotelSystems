@@ -1,4 +1,4 @@
--- TIGER FOR ADDING RESERVATIONS TO NOTIFICATIONS
+-- TRIGGER FOR ADDING RESERVATIONS TO NOTIFICATIONS
 
 CREATE OR REPLACE FUNCTION reservation_notification()
   RETURNS TRIGGER AS
@@ -17,3 +17,15 @@ CREATE TRIGGER reservation_notification AFTER INSERT ON reservation
 FOR EACH ROW EXECUTE PROCEDURE reservation_notification();
 
 ----
+
+CREATE OR REPLACE FUNCTION booker_check() RETURNS trigger AS $booker_check$
+BEGIN
+  IF NEW.booker IS NULL then
+    NEW.booker = NEW.id;
+  END IF;
+  RETURN NEW;
+END;
+$booker_check$ LANGUAGE plpgsql;
+
+CREATE TRIGGER booker_check BEFORE INSERT ON guest
+FOR EACH ROW EXECUTE PROCEDURE booker_check();
