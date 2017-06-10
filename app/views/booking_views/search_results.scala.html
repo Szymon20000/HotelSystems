@@ -1,22 +1,33 @@
-@(listRooms: List[Room], photosMap: Map[Integer, Photo])
-@import views.html.helper.CSRF; var photo = new Photo();
+@(listRooms: List[Room], photosMap: Map[Integer, Photo], form: play.data.Form[forms.SearchResultForm])(implicit messages: play.i18n.Messages)
+
+@import views.html.helper.CSRF;
+@import b3.vertical.fieldConstructor; var photo = new Photo(); var defaultPath = "";
 
 @main("Search results") {
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/rooms.css")">
 } {
     <h3>Search results</h3>
-    @for( room <- listRooms ){
-        @{photo=photosMap.getOrDefault(room.idPhoto, new Photo(null, null, "assets/images/rooms/default.jpg"))}
-        <div class="gallery">
-            <a target="_blank" href="@photo.getFilepath">
-                <img src="@photo.getFilepath" alt="@photo.getId">
-            </a>
-            <div class="desc">
-                Room №@room.getId<br>
-                Price: @room.getPrice<br>
-                Number of beds: @room.getNumberOfBeds<br>
-                Floor: @room.getFloor<br>
-            </div>
-        </div>
+    @if( listRooms.isEmpty ) {
+        No results
+    } else {
+        @b3.form(booking.routes.SearchResultController.post) {
+            @CSRF.formField
+            @for( room <- listRooms ){
+                @{defaultPath=routes.Assets.versioned("images/rooms/default.jpg").url}
+                @{photo=photosMap.getOrDefault(room.idPhoto, new Photo(null, defaultPath))}
+                <div class="gallery">
+                    <a target="_blank" href="@photo.getFilepath">
+                        <img src="@photo.getFilepath" alt="@photo.getId">
+                    </a>
+                    <div class="desc">
+                        Room №@room.getId<br>
+                        Price: @room.getPrice<br>
+                        Number of beds: @room.getNumberOfBeds<br>
+                        Floor: @room.getFloor<br>
+                        @b3.submit('class -> "btn btn-default", 'name -> "selectedRoom", 'value -> room.getId){ Select }
+                    </div>
+                </div>
+            }
+        }
     }
 }

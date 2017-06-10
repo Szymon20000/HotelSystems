@@ -6,16 +6,13 @@ public class Photo extends Model {
     @Constraints.Required
     public Integer id;
     @Constraints.Required
-    public Integer idFacility;
-    @Constraints.Required
     @Constraints.MaxLength(200)
     public String filepath;
 
     public Photo() {}
 
-    public Photo(Integer id, Integer idFacility, String filepath) {
+    public Photo(Integer id, String filepath) {
         setId(id);
-        setIdFacility(idFacility);
         setFilepath(filepath);
     }
 
@@ -25,14 +22,6 @@ public class Photo extends Model {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getIdFacility() {
-        return idFacility;
-    }
-
-    public void setIdFacility(Integer idFacility) {
-        this.idFacility = idFacility;
     }
 
     public String getFilepath() {

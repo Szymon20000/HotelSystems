@@ -21,3 +21,5 @@ libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1104-jdbc41"
 libraryDependencies += "com.adrianhurt" %% "play-bootstrap" % "1.1-P25-B3"
 
 libraryDependencies += "org.mindrot" % "jbcrypt" % "0.3m"
+
+libraryDependencies += "com.google.code.gson" % "gson" % "2.2.4"

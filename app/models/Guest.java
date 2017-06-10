@@ -2,7 +2,10 @@ package models;
 
 import play.data.validation.Constraints;
 
-public class Guest {
+import java.util.List;
+
+public class Guest extends Model {
+
     @Constraints.Required
     public Integer id;
     @Constraints.Required
@@ -12,7 +15,7 @@ public class Guest {
     @Constraints.MaxLength(50)
     public String phone;
     @Constraints.MaxLength(100)
-    public String mail;
+    public String email;
     @Constraints.Required
     public Integer booker;
     public Integer userId;
@@ -43,12 +46,12 @@ public class Guest {
         this.phone = phone;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getBooker() {
@@ -65,5 +68,12 @@ public class Guest {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public static Guest findGuest(String email) {
+        List<Guest> list = Guest.findAll("email", email, Guest.class);
+        if(list.isEmpty())
+            return null;
+        return list.get(list.size()-1);
     }
 }

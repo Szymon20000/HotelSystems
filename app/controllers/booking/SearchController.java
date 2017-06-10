@@ -1,5 +1,7 @@
 package controllers.booking;
 
+import com.google.gson.Gson;
+import controllers.booking.*;
 import forms.SearchForm;
 import models.Standard;
 import play.data.Form;
@@ -13,7 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static play.mvc.Controller.session;
 import static play.mvc.Results.ok;
+import static play.mvc.Results.redirect;
 
 public class SearchController {
     private Database db;
@@ -48,6 +52,7 @@ public class SearchController {
             return ok(views.html.booking_views.search.render(form, getRoomStandardsMap(), context.messages()));
         }
         SearchForm searchForm = form.get();
-        return ok(views.html.booking_views.search.render(form, getRoomStandardsMap(), context.messages()));
+        session().put("searchResults", new Gson().toJson(searchForm));
+        return redirect(controllers.booking.routes.SearchResultController.get());
     }
 }

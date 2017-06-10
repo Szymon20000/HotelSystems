@@ -47,6 +47,12 @@ public class LoginController extends AuthController {
         }
 
         SessionMessages.addSuccess("You have successfully logged in!");
-        return redirect(controllers.booking.routes.SearchController.get());
+        String referral = session().remove("referral");
+        if(referral == null){
+            return redirect(controllers.booking.routes.SearchController.get());
+        }
+        else {
+            return redirect(referral);
+        }
     }
 }
