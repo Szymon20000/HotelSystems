@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION rooms_stats(after timestamp with time zone, before ti
     BEGIN
       RETURN QUERY SELECT COUNT(*), room.id FROM
           reservation INNER JOIN room ON reservation.id_room = room.id
-        WHERE date_from >= after AND date_to <= before
+        WHERE date_from <= before AND after <= date_to
         GROUP BY room.id ORDER BY count DESC;
     END
   $$ language 'plpgsql';
