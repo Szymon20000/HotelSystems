@@ -54,9 +54,9 @@ CREATE INDEX idx_room ON room ( id_photo );
 
 CREATE TABLE session ( 
 	id                   serial  NOT NULL,
-	session_id           integer  NOT NULL,
+	session_id           text  NOT NULL,
 	user_id              integer  NOT NULL,
-	expiration_date      date  NOT NULL,
+	expiration_date      bigint  NOT NULL,
 	CONSTRAINT pk_session PRIMARY KEY ( id )
  );
 
@@ -256,15 +256,3 @@ COMMENT ON CONSTRAINT fk_room_photo ON room IS '';
 ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES "user"( id );
 
 COMMENT ON CONSTRAINT fk_session_user ON session IS '';
-
-CREATE OR REPLACE FUNCTION booker_check() RETURNS trigger AS $booker_check$
-BEGIN
-  IF NEW.booker IS NULL then
-    NEW.booker = NEW.id;
-  END IF;
-  RETURN NEW;
-END;
-$booker_check$ LANGUAGE plpgsql;
-
-CREATE TRIGGER booker_check BEFORE INSERT ON guest
-FOR EACH ROW EXECUTE PROCEDURE booker_check();
