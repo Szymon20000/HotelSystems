@@ -256,3 +256,17 @@ COMMENT ON CONSTRAINT fk_room_photo ON room IS '';
 ALTER TABLE session ADD CONSTRAINT fk_session_user FOREIGN KEY ( user_id ) REFERENCES "user"( id );
 
 COMMENT ON CONSTRAINT fk_session_user ON session IS '';
+
+CREATE TABLE message (
+	id                   serial  NOT NULL,
+	content              text  NOT NULL,
+	title                text  NOT NULL,
+	addressee            int  NOT NULL,
+	sender               int  NOT NULL,
+	message_type         int  NOT NULL,
+	date                 bigint  NOT NULL,
+	CONSTRAINT pk_message PRIMARY KEY ( id )
+);
+
+ALTER TABLE ONLY message
+	ADD CONSTRAINT message_user_id_fk FOREIGN KEY (sender) REFERENCES "user"(id);
