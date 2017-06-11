@@ -39,7 +39,7 @@ CREATE TABLE "user" (
  );
 
 CREATE TABLE room ( 
-	id                   integer  NOT NULL,
+	id                   serial  NOT NULL,
 	price                numeric(8,2)  NOT NULL,
 	number_of_beds       integer  NOT NULL,
 	id_standard          integer  NOT NULL,
